@@ -28,7 +28,8 @@ SK.moduleConstructors.PemtHighlight.prototype.init = function() {
     var results = [];
 
     //Boucle de test de PEMT
-    for (var i = 0; i < dates.length; i++) {
+    // Pas besoin de tester le dernier post puisqu'il n'a pas de post suivant
+    for (var i = 0; i < dates.length - 1; i++) {
         //Si la date est similaire à celle du post suivant
         if (dates[i] === dates[i + 1]) {
             //Alors on l'ajoute au tableau des PEMT

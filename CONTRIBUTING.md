@@ -14,7 +14,7 @@ Conventions de code
 
 ### Conventions de nommage
 
-- Les modules, variables et fonctions sont nommés en anglais. Vous pouvez vous inspirez des noms existants.
+- Les modules, variables et fonctions sont nommés en anglais. Vous pouvez vous inspirer des noms existants.
 
 ### Indentation
 
