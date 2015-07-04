@@ -274,16 +274,20 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
 
     if (this.getSetting("fullScreenVideo")) {
         css += "\
+            .player-contenu {\
+                position: relative;\
+            }\
             .full-screen-btn {\
-                float: right;\
+                display: none !important;\
+                position: absolute;\
+                    top: 5px;\
+                    right: 5px;\
                 margin-left: 0px;\
                 margin-top: 3px;\
                 font-size: 0.8em;\
             }\
-            .full-screen-btn::after {\
-                content: \"\";\
-                display: table;\
-                clear: both;\
+            .player-contenu:hover .full-screen-btn {\
+                display: inline-block !important;\
             }\
             .full-screen-btn .sk-button {\
                 padding: 3px 8px;\
