@@ -149,7 +149,7 @@ SK.moduleConstructors.Usability.prototype.addFullScreenButtons = function () {
         var target = $playerWrapper.get(0);
 
         var observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
+            mutations.forEach(function () {
                 var $player = $playerWrapper.find("object:not(.full-screen-button-added)").first();
                 var playerIdMatches = $player.attr("name").match(/-(\d+)-/);
                 var playerId = playerIdMatches && playerIdMatches[1];
