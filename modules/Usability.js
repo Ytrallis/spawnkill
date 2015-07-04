@@ -141,7 +141,7 @@ SK.moduleConstructors.Usability.prototype.addFullScreenButtons = function () {
     var self = this;
 
     // On parcourt tous les players
-    $(".player-contenu").each(function () {
+    $(".player-contenu .embed-responsive").each(function () {
 
         var $playerWrapper = $(this);
 
@@ -149,7 +149,7 @@ SK.moduleConstructors.Usability.prototype.addFullScreenButtons = function () {
         var target = $playerWrapper.get(0);
 
         var observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
+            mutations.forEach(function () {
                 var $player = $playerWrapper.find("object:not(.full-screen-button-added)").first();
                 var playerIdMatches = $player.attr("name").match(/-(\d+)-/);
                 var playerId = playerIdMatches && playerIdMatches[1];
@@ -274,7 +274,7 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
 
     if (this.getSetting("fullScreenVideo")) {
         css += "\
-            .player-contenu {\
+            .player-contenu .embed-responsive {\
                 position: relative;\
             }\
             .full-screen-btn {\
@@ -282,15 +282,17 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
                 position: absolute;\
                     top: 5px;\
                     right: 5px;\
-                margin-left: 0px;\
                 margin-top: 3px;\
-                font-size: 0.8em;\
+                line-height: 1.6 !important;\
+                font-size: 12px !important;\
             }\
             .player-contenu:hover .full-screen-btn {\
                 display: inline-block !important;\
             }\
-            .full-screen-btn .sk-button {\
+            .full-screen-btn .sk-button-content {\
                 padding: 3px 8px;\
+                line-height: 1.6 !important;\
+                font-size: 12px !important;\
             }\
         ";
     }
