@@ -274,6 +274,9 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .conteneur-message .bloc-header {\
             overflow: visible !important;\
         }\
+        .bloc-com-rep .bloc-message-forum .txt-msg {\
+            overflow: hidden !important;\
+        }\
         #bloc-commentaires .commentaire-liste .bloc-message-forum .txt-msg {\
             overflow: hidden !important;\
         }\
