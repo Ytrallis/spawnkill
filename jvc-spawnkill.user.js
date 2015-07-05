@@ -26,7 +26,7 @@
 // @require     modules/Quote.js?v2.2.0.1
 // @require     modules/Shortcuts.js?v2.2.0.1
 // @require     modules/InfosPseudo.js?v2.2.0.1
-// @require     modules/HilightNewTopic.js?v2.2.0.1
+// @require     modules/HilightSpecialTopic.js?v2.2.0.1
 // @require     modules/LastPage.js?v2.2.0.1
 // @require     modules/EmbedMedia.js?v2.2.0.1
 // @require     modules/WarnOnNewPost.js?v2.2.0.1
@@ -37,6 +37,7 @@
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
+// @resource    bigTopic              images/big-topic.png
 // @resource    carton                images/carton.png
 // @resource    bronze                images/bronze.png
 // @resource    argent                images/argent.png
