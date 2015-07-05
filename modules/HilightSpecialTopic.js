@@ -3,21 +3,21 @@
 /* jshint newcap: false */
 
 /**
- * HilightNewTopic : met en valeur les topics sans réponses
+ * HilightSpecialTopic : met en valeur les topics sans réponses
  *
  */
-SK.moduleConstructors.HilightNewTopic = SK.Module.new();
+SK.moduleConstructors.HilightSpecialTopic = SK.Module.new();
 
-SK.moduleConstructors.HilightNewTopic.prototype.id = "HilightNewTopic";
-SK.moduleConstructors.HilightNewTopic.prototype.title = "Mise en avant des nouveaux topics";
-SK.moduleConstructors.HilightNewTopic.prototype.description = "Les nouveaux topics apparaissent en bleu dans la liste des sujets";
+SK.moduleConstructors.HilightSpecialTopic.prototype.id = "HilightSpecialTopic";
+SK.moduleConstructors.HilightSpecialTopic.prototype.title = "Mise en avant des nouveaux topics";
+SK.moduleConstructors.HilightSpecialTopic.prototype.description = "Les nouveaux topics apparaissent en bleu dans la liste des sujets";
 
-SK.moduleConstructors.HilightNewTopic.prototype.init = function() {
-    this.hilightNewTopic();
+SK.moduleConstructors.HilightSpecialTopic.prototype.init = function() {
+    this.HilightSpecialTopic();
 };
 
 /* Change l'icone des topics avec 0 posts */
-SK.moduleConstructors.HilightNewTopic.prototype.hilightNewTopic = function() {
+SK.moduleConstructors.HilightSpecialTopic.prototype.HilightSpecialTopic = function() {
 
     var self = this;
 
@@ -39,6 +39,6 @@ SK.moduleConstructors.HilightNewTopic.prototype.hilightNewTopic = function() {
 };
 
 
-SK.moduleConstructors.HilightNewTopic.prototype.shouldBeActivated = function() {
+SK.moduleConstructors.HilightSpecialTopic.prototype.shouldBeActivated = function() {
     return SK.Util.currentPageIn(SK.common.Pages.TOPIC_LIST);
 };

@@ -22,7 +22,7 @@ mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.defaul
 mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\Quote.js" "C:\wamp\www\spawnkill\modules\Quote.js"
 mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\Shortcuts.js" "C:\wamp\www\spawnkill\modules\Shortcuts.js"
 mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\InfosPseudo.js" "C:\wamp\www\spawnkill\modules\InfosPseudo.js"
-mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\HilightNewTopic.js" "C:\wamp\www\spawnkill\modules\HilightNewTopic.js"
+mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\HilightSpecialTopic.js" "C:\wamp\www\spawnkill\modules\HilightSpecialTopic.js"
 mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\LastPage.js" "C:\wamp\www\spawnkill\modules\LastPage.js"
 mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\EmbedMedia.js" "C:\wamp\www\spawnkill\modules\EmbedMedia.js"
 mklink "C:\Users\Dorian\AppData\Roaming\Mozilla\Firefox\Profiles\z8o408dk.default\gm_scripts\JVC_SpawnKill\WarnOnNewPost.js" "C:\wamp\www\spawnkill\modules\WarnOnNewPost.js"
