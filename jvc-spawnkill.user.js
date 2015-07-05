@@ -37,6 +37,7 @@
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
+// @resource    bigTopic              images/big-topic.png
 // @resource    carton                images/carton.png
 // @resource    bronze                images/bronze.png
 // @resource    argent                images/argent.png
