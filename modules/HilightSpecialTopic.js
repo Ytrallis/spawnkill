@@ -31,13 +31,13 @@ SK.moduleConstructors.HilightSpecialTopic.prototype.hilightSpecialTopics = funct
 
             var postCount = parseInt($postCount.html().trim());
             // Topics vides
-            if (postCount === 0) {
+            if (postCount === 0 && self.getSetting("hilightEmptyTopics")) {
                 $postCount.parent().find("img[src='/img/forums/topic-dossier1.png']")
                     .attr("src", GM_getResourceURL("newTopic"))
                     .addClass("new-topic");
             }
             // Topics importants
-            else if (postCount >= 5000) {
+            else if (postCount >= 5000 && self.getSetting("hilightBigTopics")) {
                 $postCount.parent().find("img[src='/img/forums/topic-dossier2.png']")
                     .attr("src", GM_getResourceURL("bigTopic"))
                     .addClass("big-topic");
@@ -47,6 +47,20 @@ SK.moduleConstructors.HilightSpecialTopic.prototype.hilightSpecialTopics = funct
     });
 };
 
+SK.moduleConstructors.HilightSpecialTopic.prototype.settings = {
+    hilightEmptyTopics: {
+        title: "Topics bleus : 0 post",
+        description: "Les topics vides sont affichés en bleu",
+        type: "boolean",
+        default: true,
+    },
+    hilightBigTopics: {
+        title: "Topics foncés : 5000 posts ou plus",
+        description: "Les topics de plus de 5000 posts sont affichés en rouge foncé",
+        type: "boolean",
+        default: true,
+    },
+};
 
 SK.moduleConstructors.HilightSpecialTopic.prototype.shouldBeActivated = function() {
     return SK.Util.currentPageIn(SK.common.Pages.TOPIC_LIST);
