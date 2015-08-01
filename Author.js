@@ -65,7 +65,8 @@ SK.Author.prototype.initFromCdv = function($cdv) {
         this.messageCount = parseInt($cdv.find("nb_messages").text()) || 0;
         this.avatar = $cdv.find("petite_image").text();
         this.fullSizeAvatar = $cdv.find("image").text();
-
+        this.fullSizeAvatar = this.fullSizeAvatar.replace(/\/(avatars?)-(sm|md)\//, "/$1/");
+        
         if(this.fullSizeAvatar === location.protocol + "//image.jeuxvideo.com/avatars/default.jpg") {
             this.fullSizeAvatar = this.avatar;
         }
