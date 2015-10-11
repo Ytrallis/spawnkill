@@ -206,18 +206,21 @@ SK.moduleConstructors.Quote.prototype.addToResponseThenFocus = function(citation
  */
 SK.moduleConstructors.Quote.prototype.hideNestedQuotes = function() {
 
-    var $showMoreButton = $("<a>", {
+    var $showMoreButton = $("<button>", {
         class: "show-nested-quote",
         html: "&#8226; &#8226; &#8226;",
         click: function() {
             var $this = $(this);
             var $quote = $this.next();
             $this.fadeOut(300);
-            $quote.animate({
-                delay: 300,
-                height: $quote.get(0).scrollHeight + "px",
-                opacity: 1,
-            });
+            $quote
+                .css("pointer-events", "all")
+                .animate({
+                    delay: 300,
+                    height: $quote.get(0).scrollHeight + "px",
+                    opacity: 1,
+                })
+            ;
         },
     });
 
@@ -314,25 +317,27 @@ SK.moduleConstructors.Quote.prototype.getCss = function() {
                 font-size: 0.7em;\
                 background-color: #EEE;\
                 border-radius: 2px;\
-                border: 1px solid #AAA;\
-                color: #555;\
-                opacity: 0.5;\
+                border: 1px solid #999;\
+                color: #444;\
                 cursor: pointer;\
                 z-index: 100;\
+                opacity: 0.6;\
             }\
             .show-nested-quote:before {\
                 content: '';\
                 position: absolute;\
                 top: -6px;\
                 left: -15px;\
-                background-color: #CFCFCF;\
+                background-color: #BBB;\
                 display: inline-block;\
                 height: 20px;\
                 width: 5px;\
             }\
             .show-nested-quote:hover {\
-                color: #555;\
                 opacity: 1;\
+            }\
+            .show-nested-quote:hover:before {\
+                background-color: #CFCFCF;\
             }\
             .txt-msg > blockquote {\
                 position: relative;\
@@ -341,6 +346,7 @@ SK.moduleConstructors.Quote.prototype.getCss = function() {
                 height: 0px;\
                 overflow: hidden;\
                 opacity: 0;\
+                pointer-events: none;\
             }\
         ";
     }
