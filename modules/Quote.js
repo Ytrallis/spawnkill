@@ -13,9 +13,14 @@ SK.moduleConstructors.Quote.prototype.description = "Permet de citer un message 
 
 SK.moduleConstructors.Quote.prototype.init = function() {
 
-    //Citations partielles
+    // Citations partielles
     if(this.getSetting("partialQuote")) {
         this.initPartialQuote();
+    }
+
+    // Citations imbriquées
+    if(this.getSetting("hideNestedQuotes")) {
+        this.hideNestedQuotes();
     }
 
 };
@@ -196,6 +201,29 @@ SK.moduleConstructors.Quote.prototype.addToResponseThenFocus = function(citation
 
 };
 
+/**
+ * Masque les citations imbriquées de la page courante.
+ */
+SK.moduleConstructors.Quote.prototype.hideNestedQuotes = function() {
+
+    var $showMoreButton = $("<a>", {
+        class: "show-nested-quote",
+        html: "&#8226; &#8226; &#8226;",
+        click: function() {
+            var $this = $(this);
+            var $quote = $this.next();
+            $this.fadeOut(300);
+            $quote.animate({
+                delay: 300,
+                height: $quote.get(0).scrollHeight + "px",
+                opacity: 1,
+            });
+        },
+    });
+
+    $(".txt-msg > blockquote > blockquote").before($showMoreButton);
+};
+
 /* Options modifiables du plugin */
 SK.moduleConstructors.Quote.prototype.settings = {
     partialQuote: {
@@ -276,8 +304,43 @@ SK.moduleConstructors.Quote.prototype.getCss = function() {
 
     if (this.getSetting("hideNestedQuotes")) {
         css += "\
-            .txt-msg blockquote blockquote {\
-                display: none;\
+            .show-nested-quote {\
+                position: absolute;\
+                height: 10px;\
+                margin-left: 29px;\
+                margin-top: 4px;\
+                padding: 0px 3px;\
+                line-height: 8px;\
+                font-size: 0.7em;\
+                background-color: #EEE;\
+                border-radius: 2px;\
+                border: 1px solid #AAA;\
+                color: #555;\
+                opacity: 0.5;\
+                cursor: pointer;\
+                z-index: 100;\
+            }\
+            .show-nested-quote:before {\
+                content: '';\
+                position: absolute;\
+                top: -6px;\
+                left: -15px;\
+                background-color: #CFCFCF;\
+                display: inline-block;\
+                height: 20px;\
+                width: 5px;\
+            }\
+            .show-nested-quote:hover {\
+                color: #555;\
+                opacity: 1;\
+            }\
+            .txt-msg > blockquote {\
+                position: relative;\
+            }\
+            .txt-msg > blockquote > blockquote {\
+                height: 0px;\
+                overflow: hidden;\
+                opacity: 0;\
             }\
         ";
     }
