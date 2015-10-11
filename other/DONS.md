@@ -7,6 +7,7 @@ Ci-dessous, les gens qui ont fait un don pour l'évolution du script ou qui m'on
 - 7suna (`144.65€`)
 
 ## Ils m'ont payé une bière :)
+- Bousbai N. (`1.68€`)
 - MadDog84 (`1.68€`)
 - 7suna (`1.68€`)
 - Project_MATO (`1.68€`)

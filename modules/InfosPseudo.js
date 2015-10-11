@@ -595,7 +595,7 @@ SK.moduleConstructors.InfosPseudo.prototype.settings = {
         title: "Mise en valeur des messages de l'auteur du topic",
         description: "Affiche une couronne devant le pseudo de tous les messages de l'auteur.",
         type: "boolean",
-        default: false,
+        default: true,
     },
     enableBlockList: {
         title: "Possibilité d'ignorer des membres",
