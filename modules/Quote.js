@@ -204,11 +204,11 @@ SK.moduleConstructors.Quote.prototype.settings = {
         type: "boolean",
         default: true,
     },
-    deleteNestedQuotes: {
+    hideNestedQuotes: {
         title: "Ne permettre qu'un seul niveau de citation",
         description: "Quand cette option est activée, un seul niveau de citation est affiché.",
         type: "boolean",
-        default: false,
+        default: true,
     },
 };
 
@@ -274,7 +274,7 @@ SK.moduleConstructors.Quote.prototype.getCss = function() {
         ";
     }
 
-    if (this.getSetting("deleteNestedQuotes")) {
+    if (this.getSetting("hideNestedQuotes")) {
         css += "\
             .txt-msg blockquote blockquote {\
                 display: none;\
