@@ -326,8 +326,8 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
         regex: /^(https?:\/\/[^\s]*\.(?:ogv|mp4|webm|ogg))$/,
 
         addHideButton: true,
-        showButtonText: "Afficher les vidéos WebM, OGG et MP4",
-        hideButtonText: "Masquer les vidéos WebM, OGG et MP4",
+        showButtonText: "Afficher les vidéos HTML5",
+        hideButtonText: "Masquer les vidéos HTML5",
 
 
         getEmbeddedMedia: function($a, match) {
@@ -337,8 +337,8 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
             var $el = $("\
                 <video max-width='100%' controls='controls'>\
                     <source src='" + src + "'>\
-                    Votre navigateur Internet ne permet d'afficher cette vidéo.\
-                </video> \
+                    Votre navigateur Internet ne permet pas d'afficher cette vidéo.\
+                </video>\
             ");
             return $el;
         }
