@@ -335,7 +335,7 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
             var src = match[1];
 
             var $el = $("\
-                <video max-width='100%' controls='controls'>\
+                <video controls='controls'>\
                     <source src='" + src + "'>\
                     Votre navigateur Internet ne permet pas d'afficher cette vidéo.\
                 </video>\
