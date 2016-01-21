@@ -16,3 +16,4 @@ Ci-dessous, les gens qui ont fait un don pour l'évolution du script ou qui m'on
 - Kévin K. (`1.68€`)
 - Graphikaweb (`1.68€`)
 - RoiPourpre (`1.68€`)
+- jvc_ato (`1.68€`)
