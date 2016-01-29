@@ -7,33 +7,23 @@
 // @include     http://*.forumjv.com/*
 // @include     https://*.jeuxvideo.com/*
 // @include     https://*.forumjv.com/*
-// @version     2.2.3.1
-// @require     jquery-2.1.1.min.js?v2.2.3.1
-// @require     jquery-plugins.js?v2.2.3.1
-// @require     base.js?v2.2.3.1
-// @require     Util.js?v2.2.3.1
-// @require     Message.js?v2.2.3.1
-// @require     Author.js?v2.2.3.1
-// @require     Button.js?v2.2.3.1
-// @require     SlideToggle.js?v2.2.3.1
-// @require     Modal.js?v2.2.3.1
-// @require     DropdownList.js?v2.2.3.1
-// @require     FaviconNotificationUpdater.js?v2.2.3.1
-// @require     SocketMessage.js?v2.2.3.1
-// @require     modules/Module.js?v2.2.3.1
-// @require     modules/SpawnkillBase.js?v2.2.3.1
-// @require     modules/Settings.js?v2.2.3.1
-// @require     modules/Quote.js?v2.2.3.1
-// @require     modules/Shortcuts.js?v2.2.3.1
-// @require     modules/InfosPseudo.js?v2.2.3.1
-// @require     modules/HilightSpecialTopic.js?v2.2.3.1
-// @require     modules/LastPage.js?v2.2.3.1
-// @require     modules/EmbedMedia.js?v2.2.3.1
-// @require     modules/WarnOnNewPost.js?v2.2.3.1
-// @require     modules/AutoUpdate.js?v2.2.3.1
-// @require     modules/PemtHighlight.js?v2.2.3.1
-// @require     modules/BetterSurveys.js?v2.2.3.1
-// @require     modules/Usability.js?v2.2.3.1
+// @version     3
+// @require     jquery-2.1.1.min.js?v3
+// @require     jquery-plugins.js?v3
+// @require     base.js?v3
+// @require     Util.js?v3
+// @require     Message.js?v3
+// @require     Author.js?v3
+// @require     Button.js?v3
+// @require     SlideToggle.js?v3
+// @require     Modal.js?v3
+// @require     DropdownList.js?v3
+// @require     FaviconNotificationUpdater.js?v3
+// @require     SocketMessage.js?v3
+// @require     modules/Module.js?v3
+// @require     modules/SpawnkillBase.js?v3
+// @require     modules/Settings.js?v3
+// @require     modules/AutoUpdate.js?v3
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
@@ -89,7 +79,7 @@
 /* jshint unused: false */
 /* jshint multistr: true */
 /* jshint newcap: false */
-SK.VERSION = "v2.2.3.1";
+SK.VERSION = "v3";
 
 
 var inIframe = window.top !== window.self;
