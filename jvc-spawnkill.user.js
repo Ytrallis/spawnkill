@@ -25,7 +25,7 @@
 // @require     modules/Settings.js?v3
 // @require     modules/Quote.js?v3
 // @require     modules/Shortcuts.js?v3
-// @disabled     modules/InfosPseudo.js?v3
+// @require     modules/InfosPseudo.js?v3
 // @require     modules/HilightSpecialTopic.js?v3
 // @require     modules/LastPage.js?v3
 // @require     modules/EmbedMedia.js?v3
