@@ -165,7 +165,7 @@ SK.moduleConstructors.WarnOnNewPost.prototype.settings = {
         title: "Jouer un son quand un nouveau post est ajouté",
         description: "Joue un son de notification quand un post est ajouté au topic après le chargement de la page.",
         type: "boolean",
-        default: true,
+        default: false,
     },
     useWebsocketServer: {
         title: "Utiliser le nouveau serveur de Websocket",
@@ -179,4 +179,3 @@ SK.moduleConstructors.WarnOnNewPost.prototype.settings = {
 SK.moduleConstructors.WarnOnNewPost.prototype.shouldBeActivated = function() {
     return SK.Util.currentPageIn(SK.common.Pages.TOPIC_READ);
 };
-
