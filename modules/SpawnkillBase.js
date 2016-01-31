@@ -56,7 +56,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.initCommonVars = function() {
  */
 SK.moduleConstructors.SpawnkillBase.prototype.getCurrentPage = function() {
 
-    var regex = "https?:\\/\\/(?:www\\.jeuxvideo\\.com\\/forums|[^\\/]*\\.forumjv\\.com)\\/(0|1|42)";
+    var regex = "https?:\\/\\/(?:[a-z]+\\.jeuxvideo\\.com\\/forums|[^\\/]*\\.forumjv\\.com)\\/(0|1|42)";
     var match = window.location.href.match(regex);
 
     var currentPage = null;
