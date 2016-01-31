@@ -36,11 +36,6 @@ SK.moduleConstructors.Usability.prototype.init = function() {
         $("#message_topic").autoGrow();
         this.overrideQuoteButton();
     }
-
-    if (this.getSetting("fullScreenVideo")) {
-        this.addFullScreenButtons();
-    }
-
 };
 
 /**
@@ -133,39 +128,6 @@ SK.moduleConstructors.Usability.prototype.overrideQuoteButton = function() {
     });
 };
 
-/**
- * Ajoute un bouton pour voir la vidéo en plein écran sous la vidéo
- */
-SK.moduleConstructors.Usability.prototype.addFullScreenButtons = function () {
-
-    var self = this;
-
-    // On parcourt tous les players
-    $(".player-contenu .embed-responsive").each(function () {
-
-        var $playerWrapper = $(this);
-
-        // On attend que le player soit initialisé avant l'ajout du bouton
-        var target = $playerWrapper.get(0);
-
-        var observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function () {
-                var $player = $playerWrapper.find("object:not(.full-screen-button-added)").first();
-                var playerIdMatches = $player.attr("name").match(/-(\d+)-/);
-                var playerId = playerIdMatches && playerIdMatches[1];
-
-                // Si l'id du player a pu être récupéré, on ajoute un bouton de plein écran.
-                if (playerId) {
-                    self._addFullScreenButtonTo($playerWrapper, "http://www.jeuxvideo.com/videos/iframe/" + playerId);
-                    $player.addClass("full-screen-button-added");
-                }
-            });
-        });
-
-        observer.observe(target, { subtree: true, childList: true });
-    });
-};
-
 SK.moduleConstructors.Usability.prototype._addFullScreenButtonTo = function ($playerWrapper, url) {
 
     var $button = new SK.Button({
@@ -218,12 +180,6 @@ SK.moduleConstructors.Usability.prototype.settings = {
         type: "boolean",
         default: true,
     },
-    fullScreenVideo: {
-        title: "Ajouter un bouton \"Voir en plein écran\" sous les vidéos",
-        description: "Permet à la vidéo de remplir entièrement la page",
-        type: "boolean",
-        default: true,
-    },
 };
 
 SK.moduleConstructors.Usability.prototype.getCss = function() {
@@ -268,31 +224,6 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
                 min-height: 20px !important;\
                 height: 20px !important;\
                 visibility: hidden !important;\
-            }\
-        ";
-    }
-
-    if (this.getSetting("fullScreenVideo")) {
-        css += "\
-            .player-contenu .embed-responsive {\
-                position: relative;\
-            }\
-            .full-screen-btn {\
-                display: none !important;\
-                position: absolute;\
-                    top: 5px;\
-                    right: 5px;\
-                margin-top: 3px;\
-                line-height: 1.6 !important;\
-                font-size: 12px !important;\
-            }\
-            .player-contenu:hover .full-screen-btn {\
-                display: inline-block !important;\
-            }\
-            .full-screen-btn .sk-button-content {\
-                padding: 3px 8px;\
-                line-height: 1.6 !important;\
-                font-size: 12px !important;\
             }\
         ";
     }
