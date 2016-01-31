@@ -271,6 +271,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
 
     var css = "\
         .bloc-message-forum .txt-msg,\
+        .bloc-message-forum .conteneur-message,\
         .conteneur-message .bloc-header {\
             overflow: visible !important;\
         }\
