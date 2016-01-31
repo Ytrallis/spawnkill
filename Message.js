@@ -37,7 +37,7 @@ SK.Message.prototype.init = function() {
     this.text = $message.text().trim();
 
     /* Retourne le permalien du post */
-    this.permalink = SK.Util.currentSimpleUrl() + "#" + this.$msg.attr("id");
+    this.permalink = SK.Util.currentSimpleUrl() + "#post_" + this.$msg.data("id");
 
     this.authorPseudoWithCase = this.$msg.find(".bloc-pseudo-msg").first().text().trim();
     this.authorPseudo = this.authorPseudoWithCase.toLowerCase();
