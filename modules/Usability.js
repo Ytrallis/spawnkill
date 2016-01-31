@@ -152,21 +152,15 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
 
     if (this.getSetting("hideTopBar")) {
         css += "\
-            #header-bottom.affix .bloc-sticker {\
-                position: absolute !important;\
-            }\
-            .affix #navbar-jv {\
-                left: 0px !important;\
-            }\
-            #header-bottom.affix .a-back-home {\
-                display: none;\
+            .header-affix {\
+                display: none !important;\
             }\
         ";
     }
 
     if (this.getSetting("hideProspectBar")) {
         css += "\
-            #prospect {\
+            #content > div:nth-child(5) {\
                 min-height: 20px !important;\
                 height: 20px !important;\
                 visibility: hidden !important;\

@@ -32,7 +32,7 @@
 // @require     modules/WarnOnNewPost.js?v3
 // @require     modules/AutoUpdate.js?v3
 // @require     modules/PemtHighlight.js?v3
-// @disabled     modules/Usability.js?v3
+// @require     modules/Usability.js?v3
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
