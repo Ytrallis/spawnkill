@@ -23,7 +23,17 @@
 // @require     modules/Module.js?v3
 // @require     modules/SpawnkillBase.js?v3
 // @require     modules/Settings.js?v3
+// @require     modules/Quote.js?v3
+// @disabled     modules/Shortcuts.js?v3
+// @disabled     modules/InfosPseudo.js?v3
+// @disabled     modules/HilightSpecialTopic.js?v3
+// @disabled     modules/LastPage.js?v3
+// @disabled     modules/EmbedMedia.js?v3
+// @disabled     modules/WarnOnNewPost.js?v3
 // @require     modules/AutoUpdate.js?v3
+// @disabled     modules/PemtHighlight.js?v3
+// @disabled     modules/BetterSurveys.js?v3
+// @disabled     modules/Usability.js?v3
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
