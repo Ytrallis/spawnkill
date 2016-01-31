@@ -168,15 +168,15 @@ SK.moduleConstructors.LastPage.prototype.getCss = function() {
 
     if (this.getSetting("showIndicator")) {
         css += "\
-            .titre-topic {\
+            .topic-title {\
                 margin-left: 32px !important;\
             }\
             a.last-page-link::after {\
               content: \"\";\
               display: block;\
               position: absolute;\
-                left: 20px;\
-                top: 4px;\
+                left: 22px;\
+                top: 6px;\
               border: solid 4px transparent;\
               border-left-color: #999;\
             }\
@@ -198,7 +198,7 @@ SK.moduleConstructors.LastPage.prototype.getCss = function() {
             .last-page-link-wrp {\
                 float: left;\
                 margin-right: 6px;\
-                margin-top: 1px;\
+                margin-top: 2px;\
             }\
             .sk-button-content.link {\
                 background-image: url('" + GM_getResourceURL("link") + "');\

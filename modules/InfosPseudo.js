@@ -668,8 +668,8 @@ SK.moduleConstructors.InfosPseudo.prototype.getCss = function() {
             }\
             .bloc-message-forum.sk-hidden .bloc-header {\
                 position: relative;\
-                    top: -5px;\
-                height: 24px;\
+                    top: -10px;\
+                height: 30px;\
                 margin: 0px !important;\
                 border: none !important;\
                 color: #999;\
