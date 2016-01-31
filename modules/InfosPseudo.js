@@ -311,7 +311,7 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostButtons = function(message) {
 SK.moduleConstructors.InfosPseudo.prototype.highlightCurrentUser = function() {
 
     //Cherche le pseudonyme de l'utilisateur
-    var currentUserPseudo = $(".nom-head-avatar").text().trim().toLowerCase();
+    var currentUserPseudo = $(".account-pseudo:first").text().trim().toLowerCase();
 
     for (var authorKey in this.authors) {
 
