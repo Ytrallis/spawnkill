@@ -128,12 +128,6 @@ SK.moduleConstructors.Usability.prototype.settings = {
         type: "boolean",
         default: false,
     },
-    hideFeedbackButton: {
-        title: "Masquer le bouton de feedback",
-        description: "Cache le bouton de feedback en bas à droite de la page",
-        type: "boolean",
-        default: false,
-    },
     hideProspectBar: {
         title: "Récupérer l'espace entre le menu et la page",
         description: "Réduit l'espace vide entre l'entête de la page et son contenu",
@@ -165,14 +159,6 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
                 left: 0px !important;\
             }\
             #header-bottom.affix .a-back-home {\
-                display: none;\
-            }\
-        ";
-    }
-
-    if (this.getSetting("hideFeedbackButton")) {
-        css += "\
-            #jv-feedback {\
                 display: none;\
             }\
         ";
