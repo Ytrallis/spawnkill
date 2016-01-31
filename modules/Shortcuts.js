@@ -9,6 +9,7 @@
  */
 SK.moduleConstructors.Shortcuts = SK.Module.new();
 
+SK.moduleConstructors.Shortcuts.prototype.id = "Shortcuts";
 SK.moduleConstructors.Shortcuts.prototype.title = "Raccourcis clavier";
 SK.moduleConstructors.Shortcuts.prototype.description = "Ajoute des raccourcis clavier pour naviguer plus rapidement";
 
