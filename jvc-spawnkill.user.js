@@ -29,7 +29,7 @@
 // @require     modules/HilightSpecialTopic.js?v3
 // @require     modules/LastPage.js?v3
 // @require     modules/EmbedMedia.js?v3
-// @disabled     modules/WarnOnNewPost.js?v3
+// @require     modules/WarnOnNewPost.js?v3
 // @require     modules/AutoUpdate.js?v3
 // @disabled     modules/PemtHighlight.js?v3
 // @disabled     modules/BetterSurveys.js?v3
