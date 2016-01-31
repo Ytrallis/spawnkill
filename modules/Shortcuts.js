@@ -24,7 +24,6 @@ SK.moduleConstructors.Shortcuts.prototype.init = function() {
             UP_ARROW_KEY = 38,
             RIGHT_ARROW_KEY = 39,
             DOWN_ARROW_KEY = 40,
-            // ENTER_KEY = 13,
             SPACE_KEY = 32,
             ESCAPE_KEY = 27,
             QUESTION_MARK_KEY = 188,
