@@ -285,8 +285,8 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .info-edition-msg:last-child {\
             margin-bottom: 0px;\
         }\
-        .conteneur-message:last-child {\
-            padding-bottom: 25px\
+        .txt-msg:last-child {\
+            margin-bottom: 12px;\
         }\
         .bloc-message-forum {\
             margin-bottom: 10px;\
