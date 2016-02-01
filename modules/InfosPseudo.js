@@ -311,7 +311,7 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostButtons = function(message) {
 SK.moduleConstructors.InfosPseudo.prototype.highlightCurrentUser = function() {
 
     //Cherche le pseudonyme de l'utilisateur
-    var currentUserPseudo = $(".nom-head-avatar").text().trim().toLowerCase();
+    var currentUserPseudo = $(".account-pseudo:first").text().trim().toLowerCase();
 
     for (var authorKey in this.authors) {
 
@@ -320,7 +320,9 @@ SK.moduleConstructors.InfosPseudo.prototype.highlightCurrentUser = function() {
             var messages = this.authors[authorKey].messages;
 
             for (var i in messages) {
-                messages[i].$msg.find(".bloc-pseudo-msg").first().addClass("current-user");
+                if (messages.hasOwnProperty(i)) {
+                    messages[i].$msg.find(".bloc-pseudo-msg").first().addClass("current-user");
+                }
             }
         }
     }
@@ -493,42 +495,44 @@ SK.moduleConstructors.InfosPseudo.prototype.togglePostsForMessage = function(mes
 
     if (typeof toToggle !== "undefined") {
         for (var i in toToggle.messages) {
+            if (toToggle.messages.hasOwnProperty(i)) {
 
-            var $msg = toToggle.messages[i].$msg;
-            var $button = $msg.find(".sk-button-content.block");
-            var $tooltip = $button.siblings(".sk-tooltip");
+                var $msg = toToggle.messages[i].$msg;
+                var $button = $msg.find(".sk-button-content.block");
+                var $tooltip = $button.siblings(".sk-tooltip");
 
-            switch (newState) {
+                switch (newState) {
 
-                case "visible":
-                    $msg
-                        .removeClass("sk-hidden")
-                        .attr("title", "")
-                    ;
-                    $button
-                        .attr("data-blocked", "0")
-                        .removeClass("plus")
-                        .addClass("minus")
-                    ;
-                    $tooltip.html("Masquer les posts de " + message.authorPseudoWithCase);
-                    break;
+                    case "visible":
+                        $msg
+                            .removeClass("sk-hidden")
+                            .attr("title", "")
+                        ;
+                        $button
+                            .attr("data-blocked", "0")
+                            .removeClass("plus")
+                            .addClass("minus")
+                        ;
+                        $tooltip.html("Masquer les posts de " + message.authorPseudoWithCase);
+                        break;
 
-                case "hidden":
-                    $msg
-                        .addClass("sk-hidden")
-                        .attr("title", "Cliquez sur le + à droite du post pour réafficher les posts de " + message.authorPseudoWithCase)
-                    ;
-                    $button
-                        .attr("data-blocked", "1")
-                        .removeClass("minus")
-                        .addClass("plus")
-                    ;
-                    $tooltip.html("Afficher les posts de " + message.authorPseudoWithCase);
-                    break;
+                    case "hidden":
+                        $msg
+                            .addClass("sk-hidden")
+                            .attr("title", "Cliquez sur le + à droite du post pour réafficher les posts de " + message.authorPseudoWithCase)
+                        ;
+                        $button
+                            .attr("data-blocked", "1")
+                            .removeClass("minus")
+                            .addClass("plus")
+                        ;
+                        $tooltip.html("Afficher les posts de " + message.authorPseudoWithCase);
+                        break;
 
-                case "removed":
-                    $msg.remove();
-                    break;
+                    case "removed":
+                        $msg.remove();
+                        break;
+                }
             }
         }
     }
@@ -664,8 +668,8 @@ SK.moduleConstructors.InfosPseudo.prototype.getCss = function() {
             }\
             .bloc-message-forum.sk-hidden .bloc-header {\
                 position: relative;\
-                    top: -5px;\
-                height: 24px;\
+                    top: -10px;\
+                height: 30px;\
                 margin: 0px !important;\
                 border: none !important;\
                 color: #999;\

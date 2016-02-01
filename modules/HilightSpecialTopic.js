@@ -23,7 +23,7 @@ SK.moduleConstructors.HilightSpecialTopic.prototype.hilightSpecialTopics = funct
 
     var self = this;
 
-    $("#table-liste-topic-forum .nb-reponse-topic").each(function() {
+    $(".topic-list .topic-count").each(function() {
 
         var $postCount = $(this);
 

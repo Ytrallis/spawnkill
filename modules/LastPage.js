@@ -38,7 +38,7 @@ SK.moduleConstructors.LastPage.prototype.init = function() {
         }
 
         // On ajoute un bouton "lien vers la dernière page"
-        $(".titre-head-bloc-forum").prepend(new SK.Button({
+        $(".titre-head-bloc").prepend(new SK.Button({
             text: document.title,
             class: "last-page-bookmark-link minor link",
             href: "#last-page",
@@ -57,7 +57,7 @@ SK.moduleConstructors.LastPage.prototype.init = function() {
         // On permets aux tooltips de dépasser, sauf quand on vient de créer le topic
         if ($("[data-modif-titre-sujet]").length === 0) {
 
-            $(".titre-head-bloc-forum").css({
+            $(".titre-head-bloc").css({
                 overflow: "visible",
                 "margin-bottom": "26px",
             });
@@ -73,19 +73,19 @@ SK.moduleConstructors.LastPage.prototype.addLastPageLinks = function() {
     var self = this;
 
     //On parcourt la liste des topics
-    $("#table-liste-topic-forum tbody tr").each(function() {
+    $(".topic-list li:not(.topic-head)").each(function() {
 
         var $topic = $(this);
 
         var POST_PER_PAGE = 20;
 
         //Nombre de posts
-        var postCount = parseInt($topic.find("td:eq(2)").html());
+        var postCount = parseInt($topic.find(".topic-count").text().trim());
 
         //Nombre de pages
         var pageCount = Math.floor(postCount / POST_PER_PAGE + 1);
 
-        var topicLink = $topic.find(".titre-topic a").attr("href");
+        var topicLink = $topic.find(".topic-title").attr("href");
 
         //Dans le lien, on remplace le numéro de la page par la dernière page
         var lastPageLink = topicLink.replace(/(\/forums\/[\d]*-[\d]*-[\d]*-)[\d]*(-.*)/, "$1" + pageCount + "$2");
@@ -98,7 +98,7 @@ SK.moduleConstructors.LastPage.prototype.addLastPageLinks = function() {
         }
 
         //On ajoute le lien dernière page à l'icone des topics
-        $topic.find("td:eq(0) img").wrap($("<a>", {
+        $topic.find(".topic-img").wrap($("<a>", {
             class: "last-page-link",
             href: lastPageLink,
             title: "Accéder à la dernière page du sujet"
@@ -168,15 +168,15 @@ SK.moduleConstructors.LastPage.prototype.getCss = function() {
 
     if (this.getSetting("showIndicator")) {
         css += "\
-            .titre-topic {\
+            .topic-title {\
                 margin-left: 32px !important;\
             }\
             a.last-page-link::after {\
               content: \"\";\
               display: block;\
               position: absolute;\
-                left: 20px;\
-                top: 4px;\
+                left: 22px;\
+                top: 6px;\
               border: solid 4px transparent;\
               border-left-color: #999;\
             }\
@@ -198,7 +198,7 @@ SK.moduleConstructors.LastPage.prototype.getCss = function() {
             .last-page-link-wrp {\
                 float: left;\
                 margin-right: 6px;\
-                margin-top: 1px;\
+                margin-top: 2px;\
             }\
             .sk-button-content.link {\
                 background-image: url('" + GM_getResourceURL("link") + "');\

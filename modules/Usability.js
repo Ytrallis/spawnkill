@@ -32,15 +32,8 @@ SK.moduleConstructors.Usability.prototype.init = function() {
     }
 
     if (this.getSetting("betterMessageInput")) {
-
         $("#message_topic").autoGrow();
-        this.overrideQuoteButton();
     }
-
-    if (this.getSetting("fullScreenVideo")) {
-        this.addFullScreenButtons();
-    }
-
 };
 
 /**
@@ -95,77 +88,6 @@ SK.moduleConstructors.Usability.prototype.bindFocusOnNewMessage = function() {
     });
 };
 
-/**
- * Remplace l'événement onclick du bouton de citation par un nouvel
- * événement permettant de faire fonctionner autoGrow
- */
-SK.moduleConstructors.Usability.prototype.overrideQuoteButton = function() {
-
-    this.queueFunction(function() {
-
-        unsafeWindow.$(".picto-msg-quote").off();
-        $(".picto-msg-quote").on("click", function() {
-            var $msg = $(this).parents(".bloc-message-forum");
-            var postId = $msg .attr("data-id");
-            var pseudo = $msg.find(".bloc-pseudo-msg").text().replace(/[\r\n]/g, "");
-            var date = $msg.find(".bloc-date-msg").text().replace(/[\r\n]/g, "").replace(/[\r\n]/g, "").replace(/#[0-9]+$/g, "");
-
-            $.ajax({
-                type: "POST",
-                url: "/forums/ajax_citation.php",
-                dataType: "json",
-                data: {
-                    id_message: postId,
-                    ajax_timestamp: $("#ajax_timestamp_liste_messages").val(),
-                    ajax_hash: $("#ajax_hash_liste_messages").val(),
-                },
-                success: function (data) {
-                    if (data.erreur.length === 0) {
-                        unsafeWindow.$("#message_topic")
-                            .insertStartLine("> Le " + date + " '''" + pseudo + "''' a écrit :\n>" + data.txt.split("\n").join("\n> ") + "\n\n")
-                            .get(0).dispatchEvent(new Event("keyup"))
-                        ;
-                        $("#message_topic").scrollThere();
-                    }
-                }
-            });
-        });
-    });
-};
-
-/**
- * Ajoute un bouton pour voir la vidéo en plein écran sous la vidéo
- */
-SK.moduleConstructors.Usability.prototype.addFullScreenButtons = function () {
-
-    var self = this;
-
-    // On parcourt tous les players
-    $(".player-contenu .embed-responsive").each(function () {
-
-        var $playerWrapper = $(this);
-
-        // On attend que le player soit initialisé avant l'ajout du bouton
-        var target = $playerWrapper.get(0);
-
-        var observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function () {
-                var $player = $playerWrapper.find("object:not(.full-screen-button-added)").first();
-                var playerIdMatches = $player.attr("name").match(/-(\d+)-/);
-                var playerId = playerIdMatches && playerIdMatches[1];
-
-                // Si l'id du player a pu être récupéré, on ajoute un bouton de plein écran.
-                if (playerId) {
-                    self._addFullScreenButtonTo($playerWrapper, "http://www.jeuxvideo.com/videos/iframe/" + playerId);
-                    $player.addClass("full-screen-button-added");
-                }
-            });
-        });
-
-        observer.observe(target, { subtree: true, childList: true });
-    });
-};
-
 SK.moduleConstructors.Usability.prototype._addFullScreenButtonTo = function ($playerWrapper, url) {
 
     var $button = new SK.Button({
@@ -206,21 +128,9 @@ SK.moduleConstructors.Usability.prototype.settings = {
         type: "boolean",
         default: false,
     },
-    hideFeedbackButton: {
-        title: "Masquer le bouton de feedback",
-        description: "Cache le bouton de feedback en bas à droite de la page",
-        type: "boolean",
-        default: false,
-    },
     hideProspectBar: {
         title: "Récupérer l'espace entre le menu et la page",
         description: "Réduit l'espace vide entre l'entête de la page et son contenu",
-        type: "boolean",
-        default: true,
-    },
-    fullScreenVideo: {
-        title: "Ajouter un bouton \"Voir en plein écran\" sous les vidéos",
-        description: "Permet à la vidéo de remplir entièrement la page",
         type: "boolean",
         default: true,
     },
@@ -242,57 +152,18 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
 
     if (this.getSetting("hideTopBar")) {
         css += "\
-            #header-bottom.affix .bloc-sticker {\
-                position: absolute !important;\
-            }\
-            .affix #navbar-jv {\
-                left: 0px !important;\
-            }\
-            #header-bottom.affix .a-back-home {\
-                display: none;\
-            }\
-        ";
-    }
-
-    if (this.getSetting("hideFeedbackButton")) {
-        css += "\
-            #jv-feedback {\
-                display: none;\
+            .header-affix {\
+                display: none !important;\
             }\
         ";
     }
 
     if (this.getSetting("hideProspectBar")) {
         css += "\
-            #prospect {\
+            #content > div:nth-child(5) {\
                 min-height: 20px !important;\
                 height: 20px !important;\
                 visibility: hidden !important;\
-            }\
-        ";
-    }
-
-    if (this.getSetting("fullScreenVideo")) {
-        css += "\
-            .player-contenu .embed-responsive {\
-                position: relative;\
-            }\
-            .full-screen-btn {\
-                display: none !important;\
-                position: absolute;\
-                    top: 5px;\
-                    right: 5px;\
-                margin-top: 3px;\
-                line-height: 1.6 !important;\
-                font-size: 12px !important;\
-            }\
-            .player-contenu:hover .full-screen-btn {\
-                display: inline-block !important;\
-            }\
-            .full-screen-btn .sk-button-content {\
-                padding: 3px 8px;\
-                line-height: 1.6 !important;\
-                font-size: 12px !important;\
             }\
         ";
     }

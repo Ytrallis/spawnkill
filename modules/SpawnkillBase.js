@@ -56,7 +56,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.initCommonVars = function() {
  */
 SK.moduleConstructors.SpawnkillBase.prototype.getCurrentPage = function() {
 
-    var regex = "https?:\\/\\/(?:www\\.jeuxvideo\\.com\\/forums|[^\\/]*\\.forumjv\\.com)\\/(0|1|42)";
+    var regex = "https?:\\/\\/(?:[a-z]+\\.jeuxvideo\\.com\\/forums|[^\\/]*\\.forumjv\\.com)\\/(0|1|42)";
     var match = window.location.href.match(regex);
 
     var currentPage = null;
@@ -271,6 +271,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
 
     var css = "\
         .bloc-message-forum .txt-msg,\
+        .bloc-message-forum .conteneur-message,\
         .conteneur-message .bloc-header {\
             overflow: visible !important;\
         }\
@@ -463,7 +464,6 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .sk-button {\
             position: relative;\
             display: inline-block !important;\
-            margin-left: 3px;\
             vertical-align: top;\
             font-weight: bold;\
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);\
@@ -486,7 +486,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .buttons.right {\
             position: relative;\
             margin-left: 0px !important;\
-            top: 10px;\
+            top: 12px;\
             line-height: 0;\
             font-size: 0;\
         }\
@@ -498,12 +498,12 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         }\
         .bloc-message-forum .bloc-options-msg a,\
         .bloc-message-forum .bloc-options-msg span {\
-            margin-left: 2px !important;\
+            margin-left: 6px !important;\
         }\
         .buttons-row-wrapper {\
             text-align: right;\
             box-sizing: content-box;\
-            margin-right: 10px;\
+            margin-right: 12px;\
             margin-bottom: 8px;\
         }\
         .buttons.bottom .sk-button {\
