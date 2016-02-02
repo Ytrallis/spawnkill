@@ -183,6 +183,15 @@ SK.moduleConstructors.LastPage.prototype.getCss = function() {
             a.last-page-link:hover::after {\
               border-left-color: #000;\
             }\
+            @media only screen and (max-width: 61.99rem) {\
+                .topic-title {\
+                    margin-left: 6px !important;\
+                }\
+                a.last-page-link::after {\
+                    left: 23px;\
+                    top: 19px;\
+                }\
+            }\
         ";
     }
 
