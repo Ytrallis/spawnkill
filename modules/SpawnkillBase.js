@@ -275,8 +275,8 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .conteneur-message .bloc-header {\
             overflow: visible !important;\
         }\
-        .bloc-com-rep .bloc-message-forum .txt-msg {\
-            overflow: hidden !important;\
+        .bloc-message-forum .txt-msg {\
+            word-wrap: break-word;\
         }\
         #bloc-commentaires .commentaire-liste .bloc-message-forum .txt-msg {\
             overflow: hidden !important;\
@@ -285,8 +285,8 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .info-edition-msg:last-child {\
             margin-bottom: 0px;\
         }\
-        .conteneur-message:last-child {\
-            padding-bottom: 25px\
+        .txt-msg:last-child {\
+            margin-bottom: 12px;\
         }\
         .bloc-message-forum {\
             margin-bottom: 10px;\
