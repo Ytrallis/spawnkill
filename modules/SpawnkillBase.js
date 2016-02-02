@@ -285,7 +285,8 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .info-edition-msg:last-child {\
             margin-bottom: 0px;\
         }\
-        .txt-msg:last-child {\
+        .txt-msg:last-child,\
+        .info-edition-msg:last-child {\
             margin-bottom: 12px;\
         }\
         .bloc-message-forum {\
@@ -763,6 +764,11 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         }\
         .sk-dropdown::after {\
             color: rgba(0, 0, 0, .4);\
+        }\
+        @media only screen and (max-width: 39.99rem) {\
+            .buttons.right {\
+                display: none;\
+            }\
         }\
       ";
 
