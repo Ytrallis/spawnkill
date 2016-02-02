@@ -765,6 +765,11 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .sk-dropdown::after {\
             color: rgba(0, 0, 0, .4);\
         }\
+        @media only screen and (max-width: 39.99rem) {\
+            .buttons.right {\
+                display: none;\
+            }\
+        }\
       ";
 
     return css;
