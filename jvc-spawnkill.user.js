@@ -7,32 +7,32 @@
 // @include     http://*.forumjv.com/*
 // @include     https://*.jeuxvideo.com/*
 // @include     https://*.forumjv.com/*
-// @version     3.0.0.2
-// @require     jquery-2.1.1.min.js?v3.0.0.2
-// @require     jquery-plugins.js?v3.0.0.2
-// @require     base.js?v3.0.0.2
-// @require     Util.js?v3.0.0.2
-// @require     Message.js?v3.0.0.2
-// @require     Author.js?v3.0.0.2
-// @require     Button.js?v3.0.0.2
-// @require     SlideToggle.js?v3.0.0.2
-// @require     Modal.js?v3.0.0.2
-// @require     DropdownList.js?v3.0.0.2
-// @require     FaviconNotificationUpdater.js?v3.0.0.2
-// @require     SocketMessage.js?v3.0.0.2
-// @require     modules/Module.js?v3.0.0.2
-// @require     modules/SpawnkillBase.js?v3.0.0.2
-// @require     modules/Settings.js?v3.0.0.2
-// @require     modules/Quote.js?v3.0.0.2
-// @require     modules/Shortcuts.js?v3.0.0.2
-// @require     modules/InfosPseudo.js?v3.0.0.2
-// @require     modules/HilightSpecialTopic.js?v3.0.0.2
-// @require     modules/LastPage.js?v3.0.0.2
-// @require     modules/EmbedMedia.js?v3.0.0.2
-// @require     modules/WarnOnNewPost.js?v3.0.0.2
-// @require     modules/AutoUpdate.js?v3.0.0.2
-// @require     modules/PemtHighlight.js?v3.0.0.2
-// @require     modules/Usability.js?v3.0.0.2
+// @version     3.0.0.3
+// @require     jquery-2.1.1.min.js?v3.0.0.3
+// @require     jquery-plugins.js?v3.0.0.3
+// @require     base.js?v3.0.0.3
+// @require     Util.js?v3.0.0.3
+// @require     Message.js?v3.0.0.3
+// @require     Author.js?v3.0.0.3
+// @require     Button.js?v3.0.0.3
+// @require     SlideToggle.js?v3.0.0.3
+// @require     Modal.js?v3.0.0.3
+// @require     DropdownList.js?v3.0.0.3
+// @require     FaviconNotificationUpdater.js?v3.0.0.3
+// @require     SocketMessage.js?v3.0.0.3
+// @require     modules/Module.js?v3.0.0.3
+// @require     modules/SpawnkillBase.js?v3.0.0.3
+// @require     modules/Settings.js?v3.0.0.3
+// @require     modules/Quote.js?v3.0.0.3
+// @require     modules/Shortcuts.js?v3.0.0.3
+// @require     modules/InfosPseudo.js?v3.0.0.3
+// @require     modules/HilightSpecialTopic.js?v3.0.0.3
+// @require     modules/LastPage.js?v3.0.0.3
+// @require     modules/EmbedMedia.js?v3.0.0.3
+// @require     modules/WarnOnNewPost.js?v3.0.0.3
+// @require     modules/AutoUpdate.js?v3.0.0.3
+// @require     modules/PemtHighlight.js?v3.0.0.3
+// @require     modules/Usability.js?v3.0.0.3
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
@@ -88,7 +88,7 @@
 /* jshint unused: false */
 /* jshint multistr: true */
 /* jshint newcap: false */
-SK.VERSION = "v3.0.0.2";
+SK.VERSION = "v3.0.0.3";
 
 
 var inIframe = window.top !== window.self;
