@@ -168,5 +168,11 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
         ";
     }
 
+    css += "\
+        .account-number [data-val=\"0\"] {\
+            color: rgba(134, 134, 149, 0.5);\
+        }\
+    ";
+
     return css;
 };
