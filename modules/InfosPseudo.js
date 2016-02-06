@@ -175,7 +175,10 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostButtons = function(message) {
     var topicSearchUrl = location.protocol + "//www.jeuxvideo.com/recherche" + forumUrl + "?type_search_in_forum=auteur_topic&search_in_forum=" + message.authorPseudo;
 
     // Bouton profil
-    if ((this.getSetting("enableProfile") || (this.getSetting("enableSex") && message.author.gender[0] != "u")) && !message.author.profileUnavailable) {
+    if (!message.author.profileUnavailable && (
+        this.getSetting("enableProfile") ||
+        (this.getSetting("enableSex") && message.author.gender !== "unknown")
+    )) {
 
         var profileButtonOptions = {
             class: (message.author.gender && this.getSetting("enableSex")) ? message.author.gender : "unknown",
