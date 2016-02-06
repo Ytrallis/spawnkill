@@ -62,6 +62,7 @@
 // @resource    crown                 images/crown.png
 // @resource    settings              images/settings.png
 // @resource    youtube               images/youtube.png
+// @resource    video-html5           images/video-html5.png
 // @resource    vimeo                 images/vimeo.png
 // @resource    vine                  images/vine.png
 // @resource    dailymotion           images/dailymotion.png
