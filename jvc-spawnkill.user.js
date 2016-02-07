@@ -8,7 +8,7 @@
 // @include     https://*.jeuxvideo.com/*
 // @include     https://*.forumjv.com/*
 // @version     3.0.0.3
-// @require     jquery-2.1.1.min.js?v3.0.0.3
+// @require     jquery-2.2.0.min.js?v3.0.0.3
 // @require     jquery-plugins.js?v3.0.0.3
 // @require     base.js?v3.0.0.3
 // @require     Util.js?v3.0.0.3
