@@ -32,7 +32,14 @@ SK.moduleConstructors.Usability.prototype.init = function() {
     }
 
     if (this.getSetting("betterMessageInput")) {
+
         $("#message_topic").autoGrow();
+
+        // On a besoin des fonctionnalités de Quote pour overrider le bouton
+        // de citations.
+        if (SK.modules.Quote.activated) {
+            this.overrideQuoteButton();
+        }
     }
 };
 
@@ -85,6 +92,55 @@ SK.moduleConstructors.Usability.prototype.bindFocusOnNewMessage = function() {
         setTimeout(function() {
             $("#message_topic").focus();
         }, 500);
+    });
+};
+
+/**
+ * Remplace l'événement onclick du bouton de citation par un nouvel
+ * événement permettant de faire fonctionner autoGrow
+ */
+SK.moduleConstructors.Usability.prototype.overrideQuoteButton = function() {
+
+    this.queueFunction(function() {
+
+        // Supprime / Réinsère les boutons de citations pour unbind les events.
+        var $quoteButtons = $(".picto-msg-quote");
+        var $newQuoteButtons = $();
+
+        $quoteButtons.each(function () {
+            var $nextButton = $(this.nextSibling);
+            var $newQuoteButton = $("<span>", {
+                class: "picto-msg-quote",
+            });
+            this.remove();
+            $nextButton.before($newQuoteButton);
+            $newQuoteButtons = $newQuoteButtons.add($newQuoteButton);
+        });
+
+        // Bind un handler sur les nouveaux boutons.
+        $newQuoteButtons.on("click", function() {
+            var $msg = $(this).parents(".bloc-message-forum");
+            var postId = $msg .attr("data-id");
+            var pseudo = $msg.find(".bloc-pseudo-msg").text().replace(/[\r\n]/g, "");
+            var date = $msg.find(".bloc-date-msg").text().replace(/[\r\n]/g, "").replace(/[\r\n]/g, "").replace(/#[0-9]+$/g, "");
+
+            $.ajax({
+                method: "POST",
+                url: "/forums/ajax_citation.php",
+                dataType: "json",
+                data: {
+                    id_message: postId,
+                    ajax_timestamp: $("#ajax_timestamp_liste_messages").val(),
+                    ajax_hash: $("#ajax_hash_liste_messages").val(),
+                },
+                success: function (data) {
+                    if (data.erreur.length === 0) {
+                        var quoteBlock = "> Le " + date + " '''" + pseudo + "''' a écrit :\n>" + data.txt.split("\n").join("\n> ") + "\n\n";
+                        SK.modules.Quote.addToResponseThenFocus(quoteBlock);
+                    }
+                },
+            });
+        });
     });
 };
 
