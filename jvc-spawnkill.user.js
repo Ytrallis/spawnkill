@@ -7,32 +7,32 @@
 // @include     http://*.forumjv.com/*
 // @include     https://*.jeuxvideo.com/*
 // @include     https://*.forumjv.com/*
-// @version     3.0.0.3
-// @require     jquery-2.1.1.min.js?v3.0.0.3
-// @require     jquery-plugins.js?v3.0.0.3
-// @require     base.js?v3.0.0.3
-// @require     Util.js?v3.0.0.3
-// @require     Message.js?v3.0.0.3
-// @require     Author.js?v3.0.0.3
-// @require     Button.js?v3.0.0.3
-// @require     SlideToggle.js?v3.0.0.3
-// @require     Modal.js?v3.0.0.3
-// @require     DropdownList.js?v3.0.0.3
-// @require     FaviconNotificationUpdater.js?v3.0.0.3
-// @require     SocketMessage.js?v3.0.0.3
-// @require     modules/Module.js?v3.0.0.3
-// @require     modules/SpawnkillBase.js?v3.0.0.3
-// @require     modules/Settings.js?v3.0.0.3
-// @require     modules/Quote.js?v3.0.0.3
-// @require     modules/Shortcuts.js?v3.0.0.3
-// @require     modules/InfosPseudo.js?v3.0.0.3
-// @require     modules/HilightSpecialTopic.js?v3.0.0.3
-// @require     modules/LastPage.js?v3.0.0.3
-// @require     modules/EmbedMedia.js?v3.0.0.3
-// @require     modules/WarnOnNewPost.js?v3.0.0.3
-// @require     modules/AutoUpdate.js?v3.0.0.3
-// @require     modules/PemtHighlight.js?v3.0.0.3
-// @require     modules/Usability.js?v3.0.0.3
+// @version     3.0.1
+// @require     jquery-2.2.0.min.js?v3.0.1
+// @require     jquery-plugins.js?v3.0.1
+// @require     base.js?v3.0.1
+// @require     Util.js?v3.0.1
+// @require     Message.js?v3.0.1
+// @require     Author.js?v3.0.1
+// @require     Button.js?v3.0.1
+// @require     SlideToggle.js?v3.0.1
+// @require     Modal.js?v3.0.1
+// @require     DropdownList.js?v3.0.1
+// @require     FaviconNotificationUpdater.js?v3.0.1
+// @require     SocketMessage.js?v3.0.1
+// @require     modules/Module.js?v3.0.1
+// @require     modules/SpawnkillBase.js?v3.0.1
+// @require     modules/Settings.js?v3.0.1
+// @require     modules/Quote.js?v3.0.1
+// @require     modules/Shortcuts.js?v3.0.1
+// @require     modules/InfosPseudo.js?v3.0.1
+// @require     modules/HilightSpecialTopic.js?v3.0.1
+// @require     modules/LastPage.js?v3.0.1
+// @require     modules/EmbedMedia.js?v3.0.1
+// @require     modules/WarnOnNewPost.js?v3.0.1
+// @require     modules/AutoUpdate.js?v3.0.1
+// @require     modules/PemtHighlight.js?v3.0.1
+// @require     modules/Usability.js?v3.0.1
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
@@ -62,6 +62,7 @@
 // @resource    crown                 images/crown.png
 // @resource    settings              images/settings.png
 // @resource    youtube               images/youtube.png
+// @resource    video-html5           images/video-html5.png
 // @resource    vimeo                 images/vimeo.png
 // @resource    vine                  images/vine.png
 // @resource    dailymotion           images/dailymotion.png
@@ -88,7 +89,7 @@
 /* jshint unused: false */
 /* jshint multistr: true */
 /* jshint newcap: false */
-SK.VERSION = "v3.0.0.3";
+SK.VERSION = "v3.0.1";
 
 
 var inIframe = window.top !== window.self;

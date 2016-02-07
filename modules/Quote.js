@@ -104,7 +104,7 @@ SK.moduleConstructors.Quote.prototype.addPartialQuoteButton = function(message, 
             message.text = selectionText;
             var citationBlock = self.createCitationBlock(message);
 
-            self.doQuotePost(citationBlock);
+            self.addToResponseThenFocus(citationBlock);
         }
     });
 
@@ -128,12 +128,6 @@ SK.moduleConstructors.Quote.prototype.addPartialQuoteButton = function(message, 
     SK.Util.fetchStyle($partialQuoteButton);
     $partialQuoteButton.addClass("active");
 
-};
-
-/* Ajoute le bloc de citation passé en paramètre au formulaire de réponse. */
-SK.moduleConstructors.Quote.prototype.doQuotePost = function(citationBlock) {
-
-    this.addToResponseThenFocus(citationBlock);
 };
 
 /* Ajoute le texte passé en paramètre à la fin de la réponse. */

@@ -317,6 +317,34 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
 
     }));
 
+    //Vidéos HTML5 (WebM, OGG, MP4)
+    this.mediaTypes.push(new SK.moduleConstructors.EmbedMedia.MediaType({
+
+        id: "video-html5",
+        settingId: "embedVideos",
+
+        regex: /^(https?:\/\/[^\s]*\.(?:ogv|mp4|webm|ogg))$/,
+
+        addHideButton: true,
+        showButtonText: "Afficher les vidéos HTML5",
+        hideButtonText: "Masquer les vidéos HTML5",
+
+
+        getEmbeddedMedia: function($a, match) {
+
+            var src = match[1];
+
+            var $el = $("\
+                <video controls='controls'>\
+                    <source src='" + src + "'>\
+                    Votre navigateur Internet ne permet pas d'afficher cette vidéo.\
+                </video>\
+            ");
+            return $el;
+        }
+
+    }));
+
     //Youtube
     this.mediaTypes.push(new SK.moduleConstructors.EmbedMedia.MediaType({
 
@@ -982,6 +1010,12 @@ SK.moduleConstructors.EmbedMedia.prototype.getCss = function() {
             background-image: url('" + GM_getResourceURL("image") + "');\
             background-position: 0px -1px;\
         }\
+        [data-media-id='video-html5'] {\
+            background-color: #F0662B;\
+            border-bottom-color: #B51E00;\
+            background-image: url('" + GM_getResourceURL("video-html5") + "');\
+            background-position: 0px -1px;\
+        }\
         [data-media-id='youtube'] {\
             background-color: #E62117;\
             border-bottom-color: #9B140F;\
@@ -1075,7 +1109,8 @@ SK.moduleConstructors.EmbedMedia.prototype.getCss = function() {
             margin-left: 0px;\
         }\
         .image-media-element img ,\
-        .image-media-element video {\
+        .image-media-element video,\
+        .video-html5-media-element {\
             max-width: 100%;\
         }\
     ";
