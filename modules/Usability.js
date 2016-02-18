@@ -104,7 +104,7 @@ SK.moduleConstructors.Usability.prototype.overrideQuoteButton = function() {
     this.queueFunction(function() {
 
         // Supprime / Réinsère les boutons de citations pour unbind les events.
-        var $quoteButtons = $(".picto-msg-quote");
+        var $quoteButtons = $("#forum-main-col .picto-msg-quote");
         var $newQuoteButtons = $();
 
         $quoteButtons.each(function () {
