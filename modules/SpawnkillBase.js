@@ -278,7 +278,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
         .bloc-message-forum .txt-msg {\
             word-wrap: break-word;\
         }\
-        #bloc-commentaires .commentaire-liste .bloc-message-forum .txt-msg {\
+        #bloc-commentaires .bloc-message-forum .txt-msg {\
             overflow: hidden !important;\
         }\
         .conteneur-message .text-enrichi-forum:last-child p:last-child,\
