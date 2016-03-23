@@ -40,9 +40,13 @@ SK.moduleConstructors.SpawnkillBase.prototype.initCommonVars = function() {
 
     //Défini l'id du topic et du forum, si disponible
     if (SK.common.currentPage === SK.common.Pages.TOPIC_READ) {
-        var currentURLSplit = document.URL.split("-");
-        SK.common.topicId = currentURLSplit[1] + "-" + currentURLSplit[2];
-        SK.common.forumId = currentURLSplit[1];
+        // https://regex101.com/r/kW4oE6/1
+        var matches = document.URL.match(/(forums\/\d+)\-(\d+\-\d+)-(\d+)\-(.*?\.htm)/);
+        SK.common.topicId = matches[2];
+        SK.common.topicCurrentPage = matches[3];
+        SK.common.getTopicUrlForPage = function(pageNumber) {
+            return matches[1] + '-' + matches[2] + '-' + pageNumber + '-' + matches[4];
+        };
     }
     else {
         SK.common.topicId = null;
