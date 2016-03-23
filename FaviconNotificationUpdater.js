@@ -6,7 +6,7 @@
 SK.FaviconNotificationUpdater = function(baseFaviconUrl) {
 
     //Objet jQuery de l'élément <link> du favicon
-    this.$faviconLink = null;
+    this.$faviconLink = $("link[rel='shortcut icon']");
     this.baseFaviconUrl = baseFaviconUrl;
 
     //Création du canvas

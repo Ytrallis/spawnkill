@@ -3,12 +3,12 @@ Documentation - Fonctions utilitaires (`Util`)
 
 Dernière mise à jour : v1.13.1.2
 
-* **SK.Util.ws** : Effectue une requête sur l'api de JVC
-    * `url` (string) : Suffixe de l'URL de la requête sans le ".xml"
-    * `callback` (function) : Fonction appelée avec comme premier paramètre un objet jQuery correspondant à la réponse XML
+* **SK.Util.ws** : Effectue une requête sur la version mobile de jeuxvideo.com
+    * `url` (string) : Suffixe de l'URL de la requête
+    * `callback` (function) : Fonction appelée avec comme premier paramètre un objet jQuery correspondant à la page de réponse
 
 ```javascript
-SK.Util.ws("02.flux_news", function(news) {
+SK.Util.m("02.flux_news", function(news) {
     // On affiche les dernières news du site
     console.log(news);
 });
@@ -18,17 +18,17 @@ SK.Util.ws("02.flux_news", function(news) {
 
 
 * **SK.Util.api** : Wrapper de l'API JVC permettant de faire des requêtes simplifiées via un serveur distant
-    * `requestAction` (string) : Type de requête à exécuter : "pseudos" ou "topic"
-    * `data` (array<string>): Si `requestAction`== "pseudos", alors `data` est un array de pseudos, sinon, si `requestAction` == "topic", alors `data` est une chaîne de caractères contenant la chaîne d'identification d'un topic dans une URL (`ID_FORUM-ID_TOPIC`)
+    * `requestAction` (string) : Type de requête à exécuter : "pseudos"
+    * `data` (array<string>): Si `requestAction`== "pseudos", alors `data` est un array de pseudos
     * `callback` (function) : fonction appelée avec un objet jQuery contenant les infos récupérées
     * `logApiCall` (boolean, default = true) : Si vrai, enregistre l'appel dans la BDD
     * `forceCacheReload` (boolean, default = false) : Si vrai, alors ne prend pas en compte le cache, et force son rechargement
 
 ```javascript
 // Requête vers http://dl.spixel.fr/greasemonkey/jvc-spawnkill/server/api-jvc.php?action=topic&data=%221000021-2267708%22&log=true&forceCacheReload=false
-SK.Util.api("topic", "1000021-2267708", function($topic) {
-    // On affiche les infos du topic retournées par le serveur distant
-    console.log($topic);
+SK.Util.api("pseudos", ["Alexandre", "edwado"], function($authors) {
+    // On affiche les infos des pseudos retournés par le serveur distant
+    console.log($authors);
 }, false, true);
 ```   
 
@@ -167,7 +167,7 @@ console.log(encodedString);
 ----
 
 * **SK.Util.preload** : Permet de précharger une image
-    * `$img` (HTMLImageElement) : image créé via `new Image()`, `document.createElement("img")`, ou `$("<img>")` 
+    * `$img` (HTMLImageElement) : image créé via `new Image()`, `document.createElement("img")`, ou `$("<img>")`
     * `callback` (function) : Cette fonction est exécutée lorsque l'image est chargée
 
 ```javascript
@@ -177,7 +177,7 @@ var $img = $("<img>", {
 });
 
 SK.Util.preload($img, function() {
-    console.log("L'image est chargée"); 
+    console.log("L'image est chargée");
 });
 ```
 
@@ -190,25 +190,25 @@ SK.Util.preload($img, function() {
 /**
  * Exemple tiré de la "communication" entre le module "Quote.js" et "EmbedMedia.js"
  * ----
- * 
+ *
  * Quote.js - SK.moduleConstructors.Quote.prototype.htmlizeAllQuotes();
  */
 var $posts = $(".posts");
 var postCount = $posts.length;
 $posts.each(function(i, post)) {
-     
+
     // ...
-     
+
     if(i === postCount - 1) {
         // SpawnKill envoie l'évènement "betterQuoteLoaded" lorsque toutes les quotes ont été "htmlisées"
         SK.Util.dispatchEvent("betterQuoteLoaded");
     }
 }
- 
+
 /**
  * EmbedMedia.js - SK.moduleConstructors.EmbedMedia.prototype.init()
  */
- 
+
 // Si betterQuote est activé, on a besoin que les citations soient chargées pour calculer la taille des vidéos
 var mustWaitQuote = SK.modules.Quote.activated && SK.modules.Quote.getSetting("betterQuote");
 
@@ -216,7 +216,7 @@ var mustWaitQuote = SK.modules.Quote.activated && SK.modules.Quote.getSetting("b
 SK.Util.bindEventOrExecute(mustWaitQuote, "betterQuoteLoaded", function() {
     this.embedMedia();
 }.bind(this));
- 
+
 ```
 
 ----
@@ -226,7 +226,7 @@ SK.Util.bindEventOrExecute(mustWaitQuote, "betterQuoteLoaded", function() {
 ----
 
 * **SK.Util.bindEventOrExecute** : Bind une fonction à un évènement si la condition est vraie, sinon, elle est directement exécutée
-	* `condition` (boolean) : Condition à tester 
+	* `condition` (boolean) : Condition à tester
 	* `eventName` (string) : Nom de l'événement
 	* `fn` (function) : Fonction à exécuter
 
@@ -234,7 +234,7 @@ SK.Util.bindEventOrExecute(mustWaitQuote, "betterQuoteLoaded", function() {
 /**
  * EmbedMedia.js - SK.moduleConstructors.EmbedMedia.prototype.init()
  */
- 
+
  // Si on doit attendre les quotes, alors on attend que l'évènement "betterQuoteLoaded" soit envoyé, sinon on éxecute directement la fonction callback
 SK.Util.bindEventOrExecute(mustWaitQuote, "betterQuoteLoaded", function() {
     this.embedMedia();

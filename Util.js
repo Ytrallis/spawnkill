@@ -6,28 +6,23 @@
 SK.Util = {
 
     /**
-     * Effectue une requête sur l'api WS de JVC
-     *
-     * @param {string} urlSuffix - suffixe de l'url à requêter sans le ".xml"
-     *      Exemple : "forums/1-81-052354-1-0-1-0-0" pour un topic
+     * Effectue une requête sur la version mobile de jeuxvideo.com
+     * @param {string} urlSuffix - suffixe de l'url à requêter
+     *      Exemple : "forums/42-1000021-37766371-25-0-1-0-script-topiclive-compatible-respawn.htm
      *
      * @param {function} callback - Callback appelé avec un objet jQuery représentant
      *   le XML de réponse ou undefined en cas d'erreur
      */
-    ws: function(urlSuffix, callback) {
+    m: function(urlSuffix, callback) {
 
         GM_xmlhttpRequest({
-            url: "http://ws.jeuxvideo.com/" + urlSuffix + ".xml",
+            url: "http://m.jeuxvideo.com/" + urlSuffix,
             method: "GET",
-            headers: {
-                "Authorization": "Basic YXBwYW5kcjplMzIhY2Rm"
-            },
             onload: function(response) {
                 var $response;
 
                 try {
-                    var xml = $.parseXML(SK.Util.sanitizeXML(response.responseText));
-                    $response = $(xml);
+                    $response = $(response.responseText);
                 }
                 catch(e) {}
 
@@ -75,11 +70,8 @@ SK.Util = {
     apiHelper: {
 
         /**
-         * Retourne des informations liées à un topic.
+         * Retourne des informations liées au topic courant.
          *
-         * @param {string} topicId - Chaîne identifiant le topic. Ce qui est entre
-         *   parenthèses dans l'url suivante :
-         *   http://www.jeuxvideo.com/forums/1-(51-65175198)-7-0-1-0-script-jvc-spawnkill-avant-respawn.htm
          * @param {function} callback Fonction appelée avec les infos du topic :
          *   topic : {
          *      pageCount (int),
@@ -87,27 +79,23 @@ SK.Util = {
          *   }
          *   ou undefined en cas d'erreur
          */
-        topicInfos: function(topicId, callback) {
+        topicInfos: function(callback) {
 
             //Récupération du nombre de pages
-            SK.Util.ws("forums/1-" + topicId + "-1-0-1-0-0", function($ws) {
-                if(typeof $ws === "undefined") {
+            SK.Util.m(SK.common.getTopicUrlForPage(1), function($m) {
+                if(typeof $m === "undefined") {
                     callback(undefined);
                 }
                 else {
-                    var pageCount = parseInt($ws.find("count_page").text());
-                    var lastPageUrl = "forums/1-" + topicId + "-" + pageCount + "-0-1-0-0";
+                    var pageCount = parseInt($m.find(".right-elt .lien-pagi").text());
 
                     //Récupération du nombre de posts de la dernière page
-                    SK.Util.ws(lastPageUrl, function($ws) {
-                        if(typeof $ws === "undefined") {
+                    SK.Util.m(SK.common.getTopicUrlForPage(pageCount), function($m) {
+                        if(typeof $m === "undefined") {
                             callback(undefined);
                         }
                         else {
-                            var $posts = $("<div>", {
-                                html: $ws.find("contenu").text()
-                            });
-                            var lastPagePostCount = $posts.find("ul").length;
+                            var lastPagePostCount = $m.find(".post").length;
                             var fullPostCount = ((pageCount - 1) * 20) + lastPagePostCount;
 
                             if(lastPagePostCount === 0) {

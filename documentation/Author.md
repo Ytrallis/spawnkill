@@ -3,7 +3,7 @@ Documentation - Auteur (`Author`)
 
 *Dernière mise à jour : v1.13.1.2*
 
-### SK.Author 
+### SK.Author
 Permet de représenter un auteur de JVC.
 
 #### Paramètres
@@ -20,9 +20,7 @@ Permet d'initialiser les données relatives à un auteur à partir d'un objet `d
 #### Paramètres
 * `data.version` (string) : Version du modèle. Permet de déprecier le cache si la structure change
 * `data.pseudo` (string) : Son pseudo  
-* `data.rank` (string) : Son rang. Valeurs : **carton** ou **bronze** ou **argent** ou **or** ou **rubis** ou **saphir** ou **emeraude** ou **diamant**
-* `data.messageCount` (int) : Nombre de message  
-* `data.avatar` (string) : Adresse URL de l'avatar version petit 
+* `data.avatar` (string) : Adresse URL de l'avatar version petit
 * `data.fullSizeAvatar` (string) : Adresse URL de l'avatar version taille entière  
 * `data.gender` (string) :  Sexe de l'auteur. Valeurs **male** ou **female**  
 * `data.profileLink` (string) : Adresse URL de la CDV de l'auteur  
@@ -62,7 +60,7 @@ SK.Util.api("pseudos", [ "UnPseudo", "un_autre_pseudo" ], function($api) {
     // On boucle sur chaque pseudo trouvé
     $api.find("author").each(function() {
         var $cdv = $(this).find("cdv");
-        
+
         // On initialise les informations de la CDV
         author.initFromCdv($cdv);
     });
@@ -95,26 +93,9 @@ Aucun.
 #### Utilisation
 ```javascript
 var pseudo = "UnPseudo";
-var author = new SK.Author(pseudo); 
+var author = new SK.Author(pseudo);
 
 var data = author.loadLocalData();
 // On affiche les données de l'auteur
 console.log(data);
-```
-
-----
-
-### SK.Author.getRankFromColor
-Retourne le nom du rang en fonction de la couleur donnée en paramètre.
-
-#### Paramètres
-* `hexString` (string) : Couleur sous le format hexadécimal. Valeurs : **#CDAF69** (carton) ou **#E7AD87** (bronze) ou **#CCCCCC** (argent) ou **#F3D15C** (or) ou **#E5727A** (rubis) ou **#3C54C6** (saphir) ou **#3D9F6A** (emeraude) ou **#C7EBF9** (diamant).
-
-#### Utilisation
-```javascript
-var color = "#C7EBF9";
-var rank = SK.Author.getRankFromColor(color);
-
-// Affiche "diamant"
-console.log(rank);
 ```

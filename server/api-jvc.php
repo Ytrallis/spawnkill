@@ -1,10 +1,14 @@
 <?php
 
 /**
- * Agrégateur d'appels à l'api JVC.
- * Permet de compiler plusieurs appels à l'API de JVC.
- * Cette page s'appelle en GET avec pour paramètre un tableau (JSON) contenant la seconde parties des url à récupérer.
- * Par exemple ["/profile/spixel_.xml", "/profile/cisla.xml"]
+ * Permet de récupérer des données en parsant jeuxvideo.com.
+ *
+ * GET
+ *    action: 'pseudos' ou 'topic'
+ *    data:
+ *        pseudos -> ["Spixel_","Alexandre","ElDollar"]
+ *        topic   ->
+ *    log: (optionnel) 1 si l'appel à l'API doit être enregistré
  */
 
 include "config.php";
@@ -33,6 +37,7 @@ $force_cache_reload = !empty($_GET['forceCacheReload']) && $_GET['forceCacheRelo
 function getApiData($urls, $cache_result = true) {
 
 	//Crade mais pratique
+	global $action;
 	global $dbh;
 	global $force_cache_reload;
 
@@ -58,14 +63,9 @@ function getApiData($urls, $cache_result = true) {
 	//Nombre de ressources à récupérer
 	$url_count = count($urls);
 
-	//Pass de l'API JVC
-	$username = 'appandr';
-	$password = 'e32!cdf';
-
 	$mh = curl_multi_init();
 
 	foreach ($urls as $id => $url) {
-
 
 		//On récupère les données dans le cache ou via l'API si demandé et qu'on ne doit pas forcer le cache
 		if($cache_result && !$force_cache_reload) {
@@ -88,8 +88,6 @@ function getApiData($urls, $cache_result = true) {
 			curl_setopt($curly[$id], CURLOPT_HEADER, 0);
 			curl_setopt($curly[$id], CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($curly[$id], CURLOPT_TIMEOUT, 10); //timeout after 10 seconds
-			curl_setopt($curly[$id], CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-			curl_setopt($curly[$id], CURLOPT_USERPWD, "$username:$password");
 
 			curl_multi_add_handle($mh, $curly[$id]);
 		}
@@ -110,9 +108,26 @@ function getApiData($urls, $cache_result = true) {
 		$data = curl_multi_getcontent($c);
 
 		//En cas d'erreur, on enregistre pas les données dans le cache
-		if(empty($data) || preg_match("/<title>503 Service Unavailable<\\/title>/", $data)) {
+		if(empty($data)) {
 			$error = true;
 			$data = "<error>Api Error</error>";
+		}
+		else {
+			// Récupère les données souhaitées.
+			if ($action === 'pseudos') {
+				$is_male = strpos($data, '<div class="titre-pseudo sexe-m">');
+				$is_female = strpos($data, '<div class="titre-pseudo sexe-f">');
+				$gender = $is_male ? 'male' : ($is_female ? 'female' : 'unknown');
+				// https://regex101.com/r/oR8bY4/1
+				preg_match("/<img id=\"avatar0\" alt=\"[^\\s]+?\" src=\"([^\\s]+?)\">/", $data, $matches);
+				$avatar = $matches[1];
+				$data = "
+					<cdv>
+						<image>$avatar</image>
+						<gender>$gender</gender>
+					</cdv>
+				";
+			}
 		}
 
 		//On insère les données récupérées en cache
@@ -146,7 +161,7 @@ function getApiData($urls, $cache_result = true) {
 }
 
 try {
-	$options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); 
+	$options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 	$dbh = new PDO("mysql:host=" . HOST . ";dbname=" . DATABASE . ";", LOGIN, PASS, $options);
 }
 catch (Exception $e) {
@@ -164,14 +179,13 @@ switch($action) {
 	//Requêtes sur des pseudos
 	case "pseudos" :
 
-		$base_url = 'http://ws.jeuxvideo.com/';
+		$base_url = 'm.jeuxvideo.com/';
 		$pseudos = $data;
 		$urls = array();
 
 		foreach($pseudos as $pseudo) {
-			$urls[] = $base_url . 'profil/' . $pseudo . '.xml';
+			$urls[] = $base_url . 'profil/' . strtolower($pseudo) . '.html';
 		}
-
 		$results = getApiData($urls);
 		$pseudosCount = count($pseudos);
 
@@ -186,39 +200,4 @@ switch($action) {
 		<?php
 
 		break;
-
-	//Infos d'un topic
-	case "topic" :
-		$topic_url = "http://ws.jeuxvideo.com/forums/1-$data-1-0-1-0-0.xml";
-		$result = current(getApiData($topic_url, false));
-
-		preg_match('/<count_page>(\\d*)<\\/count_page>/', $result, $matches);
-
-		$page_count = intval($matches[1]);
-
-		$last_page_url = "http://ws.jeuxvideo.com/forums/1-$data-$page_count-0-1-0-0.xml";
-		$result = current(getApiData($last_page_url, false));
-		preg_match_all('/<b class=\\"cdv\\">/', $result, $matches);
-		
-		$last_page_post_count = intval(count($matches[0]));
-
-		//Si $last_page_post_count ou $page_count = 0, il y a eu un problème à la récupération des infos
-		if($last_page_post_count === 0 || $page_count === 0) {
-			$post_count = -1;
-		}
-		else {
-			$post_count = (($page_count - 1) * 20) + $last_page_post_count;
-		}
-
-		?>
-		<api>
-			<topic>
-				<pagecount><?php echo $page_count; ?></pagecount>
-				<postcount><?php echo $post_count; ?></postcount>
-			</topic>
-		</api>
-		<?php
-
-		break;
-
 }
