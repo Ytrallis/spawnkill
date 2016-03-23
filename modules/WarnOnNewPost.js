@@ -107,14 +107,14 @@ SK.moduleConstructors.WarnOnNewPost.prototype.requestTopicUpdates = function() {
 SK.moduleConstructors.WarnOnNewPost.prototype.httpPolling = function(checkingInterval) {
 
         //On récupère les infos initiales du topic
-        this.getPostCount(SK.common.topicId, function(postCount) {
+        this.getPostCount(function(postCount) {
 
             this.initialPostCount = postCount;
 
             //On récupère de nouveau les infos du topic à intervale régulier
             setInterval(function() {
 
-                this.getPostCount(SK.common.topicId, function(newPostCount) {
+                this.getPostCount(function(newPostCount) {
                     //Si le nombre de posts est différent, on met à jour le titre de la page
 
                     //Si newPostCount === -1, il y a eu une erreur
@@ -146,10 +146,9 @@ SK.moduleConstructors.WarnOnNewPost.prototype.httpPolling = function(checkingInt
  * Récupère le nombre de posts du topic via l'API JVC.
  * Appelle la fonction de callback avec le nombre de posts en arguments.
  */
-SK.moduleConstructors.WarnOnNewPost.prototype.getPostCount = function(topicId, callback) {
+SK.moduleConstructors.WarnOnNewPost.prototype.getPostCount = function(callback) {
 
-    SK.Util.apiHelper.topicInfos(topicId, function(topicInfos) {
-
+    SK.Util.apiHelper.topicInfos(function(topicInfos) {
         //En cas d'erreur, on n'appelle pas le callback
         if (typeof topicInfos === "undefined") {
             return;

@@ -368,18 +368,14 @@ SK.moduleConstructors.InfosPseudo.prototype.getTopicAuthor = function(callback) 
 
     callback = callback || function() {};
 
-    //Création de la clé
-    var currentURLSplit = document.URL.split("-");
-    var topicId = currentURLSplit[1] + "-" + currentURLSplit[2];
-    var topicKey = "topics." + topicId;
-    var currentPage = currentURLSplit[3];
+    var topicKey = "topics." + SK.common.topicId;
 
     var topicAuthor = SK.Util.getValue(topicKey);
 
     //Si la clé n'est pas présente dans le localStorage
     if (topicAuthor === null) {
         //Si on est sur la première page du topic, on récupère directement l'auteur
-        if (SK.Util.currentPageIn(SK.common.Pages.TOPIC_READ) && currentPage === "1") {
+        if (SK.Util.currentPageIn(SK.common.Pages.TOPIC_READ) && SK.common.topicCurrentPage === "1") {
 
             topicAuthor = $(".bloc-pseudo-msg").first().text().trim().toLowerCase();
 
@@ -390,9 +386,7 @@ SK.moduleConstructors.InfosPseudo.prototype.getTopicAuthor = function(callback) 
         }
         //Sinon, on fait une requête HTTP vers la première page du topic
         else {
-            var requestURL = "forums/1-" + topicId + "-1-0-1-0-0";
-
-            SK.Util.ws(requestURL, function($firstPage) {
+            SK.Util.m(SK.common.getTopicUrlForPage(1), function($firstPage) {
                 var contenu = $($firstPage.find("contenu").text());
                 topicAuthor = contenu.find(".pseudo").first().text().trim().split(/\s/)[0].toLowerCase();
 
