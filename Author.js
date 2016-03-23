@@ -17,8 +17,6 @@ SK.Author = function(pseudo) {
     }
 
     this.key = "authors." + pseudo;
-    this.rank = "";
-    this.messageCount = 0;
     this.avatar = "";
     this.fullSizeAvatar = "";
     this.gender = "";
@@ -30,7 +28,7 @@ SK.Author = function(pseudo) {
 };
 
 /** Version du modèle. Permet de déprecier le cache si la structure change */
-SK.Author.VERSION = "2.6";
+SK.Author.VERSION = "3";
 
 /** Durée de validité du localStorage en jours */
 SK.Author.DATA_TTL = 4;
@@ -41,8 +39,6 @@ SK.Author.DATA_TTL = 4;
  */
 SK.Author.prototype.initFromData = function(data) {
     this.version = data.version || "";
-    this.rank = data.rank || "";
-    this.messageCount = data.messageCount || 0;
     this.avatar = data.avatar || "";
     this.fullSizeAvatar = data.fullSizeAvatar || "";
     this.gender = data.gender || "";
@@ -57,32 +53,19 @@ SK.Author.prototype.initFromCdv = function($cdv) {
 
     this.profileLink = location.protocol + "//www.jeuxvideo.com/profil/" + this.pseudo + ".html";
 
-    if($cdv.find("info_pseudo").length > 0 &&
-        $cdv.find("petite_image").length > 0 &&
-        $cdv.find("couleur_pseudo").length > 0
+    if($cdv.find("image").length > 0 &&
+        $cdv.find("gender").length > 0
     ) {
-        this.rank = SK.Author.getRankFromColor($cdv.find("couleur_rang").text());
-        this.messageCount = parseInt($cdv.find("nb_messages").text()) || 0;
-        this.avatar = $cdv.find("petite_image").text();
-        this.fullSizeAvatar = $cdv.find("image").text();
-        this.fullSizeAvatar = this.fullSizeAvatar.replace(/\/(avatars?)-(sm|md)\//, "/$1/");
-        
+        var avatar = location.protocol + $cdv.find("image").text();
+        // https://regex101.com/r/kP6hL0/2
+        this.avatar = avatar.replace(/\/(avatars?)-(sm|md)\//, "/$1-sm/");
+        this.fullSizeAvatar = avatar.replace(/\/(avatars?)-(sm|md)\//, "/$1/");
+
         if(this.fullSizeAvatar === location.protocol + "//image.jeuxvideo.com/avatars/default.jpg") {
             this.fullSizeAvatar = this.avatar;
         }
 
-        switch ($cdv.find("couleur_pseudo").text()) {
-            case "#0066CC":
-                this.gender = "male";
-                break;
-            case "#FF0099":
-                this.gender = "female";
-                break;
-            default:
-                this.gender = "unknown";
-                break;
-
-        }
+        this.gender = $cdv.find("gender").text();
     }
     else {
         this.profileUnavailable = true;
@@ -115,8 +98,6 @@ SK.Author.prototype.saveLocalData = function() {
 
     var data = {
         version: this.version,
-        rank: this.rank,
-        messageCount: this.messageCount,
         avatar: this.avatar,
         fullSizeAvatar: this.fullSizeAvatar,
         gender: this.gender,
@@ -145,40 +126,6 @@ SK.Author.prototype.loadLocalData = function() {
     }
 
     return dataLoaded;
-};
-
-SK.Author.getRankFromColor = function(hexString) {
-
-    var rank = "";
-
-    switch(hexString) {
-        case "#CDAF69" :
-            rank = "carton";
-            break;
-        case "#E7AD87" :
-            rank = "bronze";
-            break;
-        case "#CCCCCC" :
-            rank = "argent";
-            break;
-        case "#F3D15C" :
-            rank = "or";
-            break;
-        case "#E5727A" :
-            rank = "rubis";
-            break;
-        case "#3C54C6" :
-            rank = "saphir";
-            break;
-        case "#3D9F6A" :
-            rank = "emeraude";
-            break;
-        case "#C7EBF9" :
-            rank = "diamant";
-            break;
-    }
-
-    return rank;
 };
 
 /**
