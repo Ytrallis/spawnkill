@@ -95,8 +95,10 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostInfos = function() {
 
                 //On conserve les auteurs dont on n'a pas les données
                 if(toLoadAuthorPseudos.indexOf(message.authorPseudo) === -1) {
-                    toLoadAuthors.push(author);
-                    toLoadAuthorPseudos.push(message.authorPseudo);
+                    if (!author.profileUnavailable) {
+                        toLoadAuthors.push(author);
+                        toLoadAuthorPseudos.push(message.authorPseudo);
+                    }
                 }
             }
 

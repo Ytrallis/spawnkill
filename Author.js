@@ -6,10 +6,10 @@
 SK.Author = function(pseudo) {
     this.version = SK.Author.VERSION;
     this.pseudoWithCase = pseudo;
-    this.pseudo = pseudo.toLowerCase();
+    this.pseudo = pseudo.toLowerCase().trim();
 
     //Vrai en cas de profil banni/supprimé
-    if (this.pseudo === "pseudo supprimé") {
+    if (this.pseudo.indexOf("pseudo supprimé") !== -1) {
         this.profileUnavailable = true;
     }
     else {
