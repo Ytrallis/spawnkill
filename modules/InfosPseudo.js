@@ -58,10 +58,6 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostInfos = function() {
 
     var self = this;
 
-    //Auteurs dont on n'a pas les données
-    var toLoadAuthors = [];
-    var toLoadAuthorPseudos = [];
-
     // Messages de la page
     var $messages = $(".bloc-message-forum");
 
@@ -78,8 +74,12 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostInfos = function() {
 
             //On récupère l'auteur correspondant au post
             if(typeof self.authors[message.authorPseudo] === "undefined") {
-                self.authors[message.authorPseudo] = new SK.Author(message.authorPseudo);
-                self.authors[message.authorPseudo].loadLocalData();
+                var $avatar = $msg.find('.user-avatar-msg');
+
+                // Sur jeuxvideo.com la source de l'image se trouve d'abord dans `data-src`
+                // puis cet attribut est remplacé par `src` quand l'image est lazyloadée.
+                var avatarUrl = $avatar.data('srcset') || $avatar.attr('src');
+                self.authors[message.authorPseudo] = new SK.Author(message.authorPseudo, avatarUrl);
             }
             var author = self.authors[message.authorPseudo];
             author.addMessage(message);
@@ -87,20 +87,7 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostInfos = function() {
             //Et on l'ajoute au message
             message.setAuthor(author);
 
-            //On affiche les données des auteurs qu'on a en localStorage
-            if(author.hasLocalData) {
-                self.showMessageInfos(message);
-            }
-            else {
-
-                //On conserve les auteurs dont on n'a pas les données
-                if(toLoadAuthorPseudos.indexOf(message.authorPseudo) === -1) {
-                    if (!author.profileUnavailable) {
-                        toLoadAuthors.push(author);
-                        toLoadAuthorPseudos.push(message.authorPseudo);
-                    }
-                }
-            }
+            self.showMessageInfos(message);
 
             // On dispatche un événement indiquant que tous les auteurs de la page sont définis
             if (isLastMessageOnPage) {
@@ -110,36 +97,6 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostInfos = function() {
         }, this);
 
     });
-
-
-    //On récupères les infos des auteurs dont on n'a pas les données
-    self.queueFunction(function() {
-        var queueInitAuthor = function(author, $cdv) {
-            setTimeout(function() {
-
-                author.initFromCdv($cdv);
-                //On enregistre les données dans le localStorage
-                author.saveLocalData();
-
-                author.messages.forEach(function(message) {
-                    self.showMessageInfos(message);
-                });
-            }, 0);
-        };
-
-        //On récupère les infos des auteurs périmées ou qu'on n'a pas encore dans le localStorage
-        if(toLoadAuthorPseudos.length > 0) {
-            SK.Util.api("pseudos", toLoadAuthorPseudos, function($api) {
-                $api.find("author").each(function() {
-                    var $author = $(this);
-                    var pseudo = $author.attr("pseudo");
-                    var $cdv = $author.find("cdv");
-                    var author = self.authors[pseudo];
-                    queueInitAuthor(author, $cdv);
-                });
-            });
-        }
-    }, this);
 };
 
 /** Affiche les infos du post et de l'auteur au message */
@@ -150,7 +107,6 @@ SK.moduleConstructors.InfosPseudo.prototype.showMessageInfos = function(message)
     if (this.getSetting("modalAvatar")) {
         this.addAvatarModalMarkup(message);
     }
-
 };
 
 
@@ -177,13 +133,10 @@ SK.moduleConstructors.InfosPseudo.prototype.addPostButtons = function(message) {
     var topicSearchUrl = location.protocol + "//www.jeuxvideo.com/recherche" + forumUrl + "?type_search_in_forum=auteur_topic&search_in_forum=" + message.authorPseudo;
 
     // Bouton profil
-    if (!message.author.profileUnavailable && (
-        this.getSetting("enableProfile") ||
-        (this.getSetting("enableSex") && message.author.gender !== "unknown")
-    )) {
+    if (!message.author.profileUnavailable && this.getSetting("enableProfile")) {
 
         var profileButtonOptions = {
-            class: (message.author.gender && this.getSetting("enableSex")) ? message.author.gender : "unknown",
+            class: "unknown",
             href: profileUrl,
             tooltip: {
                 text: "Voir la carte de visite"
@@ -558,12 +511,6 @@ SK.moduleConstructors.InfosPseudo.prototype.settings = {
         type: "boolean",
         default: true,
     },
-    enableSex: {
-        title: "Affichage du sexe de l'auteur",
-        description: "Affiche une photo de la... Hmm...Pardon. Change la couleur du bouton profil d'un auteur en fonction de son sexe.",
-        type: "boolean",
-        default: true,
-    },
     enablePermalink: {
         title: "Bouton Permalien",
         description: "Ajoute un bouton permettant de copier directement le permalien d'un post.",
@@ -612,16 +559,6 @@ SK.moduleConstructors.InfosPseudo.prototype.settings = {
         type: "boolean",
         default: false,
     },
-    clearAuthorCache: {
-        title: "Vider le cache des auteurs",
-        description: "Permet de vider le cache des auteurs pour voir votre nouvel avatar, par exemple.",
-        type: "button",
-        buttonLabel: "Vider le cache",
-        default: function() {
-            SK.Author.clearData();
-            SK.Util.notify("Confirmation", "Le cache des auteurs a bien été vidé.", 2000);
-        },
-    }
 };
 
 SK.moduleConstructors.InfosPseudo.prototype.getCss = function() {
@@ -708,17 +645,6 @@ SK.moduleConstructors.InfosPseudo.prototype.getCss = function() {
             background-image: url('" + GM_getResourceURL("anchor") + "');\
             background-color: #777;\
             border-bottom-color: #000;\
-        }\
-        .sk-button-content.male {\
-            background-image: url('" + GM_getResourceURL("male") + "');\
-            background-color: #348DCC;\
-            border-bottom-color: #1C4F72;\
-        }\
-        .sk-button-content.female {\
-            background-image: url('" + GM_getResourceURL("female") + "');\
-            background-position: -1px -1px;\
-            background-color: #D674AE;\
-            border-bottom-color: #A44C80;\
         }\
         .sk-button-content.unknown {\
             background-image: url('" + GM_getResourceURL("unknown") + "');\

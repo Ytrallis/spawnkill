@@ -16,24 +16,6 @@ SK.Util.m("02.flux_news", function(news) {
 
 ----
 
-
-* **SK.Util.api** : Wrapper de l'API JVC permettant de faire des requêtes simplifiées via un serveur distant
-    * `requestAction` (string) : Type de requête à exécuter : "pseudos"
-    * `data` (array<string>): Si `requestAction`== "pseudos", alors `data` est un array de pseudos
-    * `callback` (function) : fonction appelée avec un objet jQuery contenant les infos récupérées
-    * `logApiCall` (boolean, default = true) : Si vrai, enregistre l'appel dans la BDD
-    * `forceCacheReload` (boolean, default = false) : Si vrai, alors ne prend pas en compte le cache, et force son rechargement
-
-```javascript
-// Requête vers http://dl.spixel.fr/greasemonkey/jvc-spawnkill/server/api-jvc.php?action=topic&data=%221000021-2267708%22&log=true&forceCacheReload=false
-SK.Util.api("pseudos", ["Alexandre", "edwado"], function($authors) {
-    // On affiche les infos des pseudos retournés par le serveur distant
-    console.log($authors);
-}, false, true);
-```   
-
-----
-
 * **SK.Util.timestamp** : Retourne le timestamp Unix courant (int)
 
 

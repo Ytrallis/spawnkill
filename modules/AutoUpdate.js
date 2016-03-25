@@ -101,10 +101,6 @@ SK.moduleConstructors.AutoUpdate.prototype.getLastRelease = function(callback) {
         method: "GET",
         onload: function(response) {
             callback(JSON.parse(response.responseText)[0]);
-            // callback({
-            //  "name": "Ne ratez plus les mises à jour !",
-            //  "tag_name": "v1.11",
-            // });
         }
     });
 };
