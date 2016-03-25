@@ -34,39 +34,6 @@ SK.Util = {
         });
     },
 
-    /**
-     * Wrapper de l'API JVC permettant de faire des requêtes simplifiées via un
-     * serveur distant.
-     *
-     * @param {string} requestAction - Type de requête à exécuter : "pseudos"
-     * @param {mix} data - données de la requête
-     *    pseudos : [ "pseudo1",  "pseudo2", "pseudo3"]
-     * @param {function} callback - fonction appelée avec un objet jQuery contenant
-     *   les infos récupérées
-     * @param {boolean} logApiCall - true (défaut) ou false, si vrai : enregistre
-     *   l'appel dans la BDD
-     * @param {boolean} forceCacheReload - true ou false (défaut) : si vrai, ne prend
-     *   pas en compte le cache et force son rechargement pour l'appel courant
-     */
-    api: function(requestAction, data, callback, logApiCall, forceCacheReload) {
-
-        callback = callback || function() {};
-        logApiCall = (logApiCall === false ? "0" : "1");
-        forceCacheReload = (forceCacheReload === false ? "0" : "1");
-
-        var url = SK.config.SERVER_URL + "api-jvc.php?action=" + requestAction +
-            "&data=" + encodeURIComponent(JSON.stringify(data)) + "&log=" + logApiCall + "&forceCacheReload=" + forceCacheReload;
-
-        GM_xmlhttpRequest({
-            url: url,
-            method: "GET",
-            onload: function(response) {
-                var $xml = $($.parseXML(SK.Util.sanitizeXML(response.responseText)));
-                callback($xml);
-            }
-        });
-    },
-
     apiHelper: {
 
         /**
@@ -344,8 +311,6 @@ SK.Util = {
 
     /**
      * Ajoute une valeur dans le localStorage ou sessionStorage.
-     * Fait le ménage dans les auteurs si ce dernier est plein.
-     *
      * @param {boolean} temporary Vrai si la valeur doit être stockée en sessionStorage
      */
     setValue: function(key, value, temporary) {
@@ -362,12 +327,7 @@ SK.Util = {
                 localStorage.setItem(key, JSON.stringify(value));
             }
         }
-        catch(e) {
-            if(e.name === "QUOTA_EXCEEDED_ERR") {
-                // On supprime les données obsolètes des auteurs
-                SK.Author.clearObsoleteData();
-            }
-        }
+        catch(e) {}
     },
 
     /**
