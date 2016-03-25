@@ -9,6 +9,9 @@ SK.moduleConstructors.InfosPseudo.prototype.title = "Informations sur les posts"
 SK.moduleConstructors.InfosPseudo.prototype.description = "Affiche le sexe de l'auteur si disponible, " +
     "un bouton pour copier le lien permanent ou encore un bouton pour voir les topics de l'auteur.";
 
+// Utilisée pour invalider le cache en cas de changement.
+SK.moduleConstructors.InfosPseudo.prototype.VERSION = 2;
+
 /**
  * Pseudos des auteurs présents sur la page.
  */
@@ -293,18 +296,12 @@ SK.moduleConstructors.InfosPseudo.prototype.highlightCurrentUser = function() {
  */
 SK.moduleConstructors.InfosPseudo.prototype.getTopicListAuthors = function() {
 
-    var currentForumId = document.URL.split("-")[1];
-
     //On parcourt tous les topics de la liste
     $(".titre-topic > a").each(function() {
 
-        var $topicLink = $(this);
+        var topicKey = "topics-v" + this.VERSION + '.' + SK.common.topicId;
 
-        //On récupère l'id du topic
-        var topicId = $topicLink.attr("href").split("-")[2];
-        var topicKey = "topics." + currentForumId + "-" + topicId;
-
-        //Puis, si on n'a pas déjà les infos en localStorage
+        //Si on n'a pas déjà les infos en localStorage
         if (SK.Util.getValue(topicKey) === null) {
 
             //On récupère le pseudo de l'auteur et on l'enregistre
@@ -323,7 +320,7 @@ SK.moduleConstructors.InfosPseudo.prototype.getTopicAuthor = function(callback) 
 
     callback = callback || function() {};
 
-    var topicKey = "topics." + SK.common.topicId;
+    var topicKey = "topics-v" + this.VERSION + '.' + SK.common.topicId;
 
     var topicAuthor = SK.Util.getValue(topicKey);
 
@@ -342,8 +339,7 @@ SK.moduleConstructors.InfosPseudo.prototype.getTopicAuthor = function(callback) 
         //Sinon, on fait une requête HTTP vers la première page du topic
         else {
             SK.Util.m(SK.common.getTopicUrlForPage(1), function($firstPage) {
-                var contenu = $($firstPage.find("contenu").text());
-                topicAuthor = contenu.find(".pseudo").first().text().trim().split(/\s/)[0].toLowerCase();
+                topicAuthor = $firstPage.find(".bloc-pseudo-msg:first").text().trim().toLowerCase();
 
                 //On enregistre l'info en localStorage
                 SK.Util.setValue(topicKey, topicAuthor);

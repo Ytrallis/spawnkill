@@ -822,7 +822,7 @@ SK.moduleConstructors.EmbedMedia.prototype.embedMedia = function() {
                 }
 
                 //On enregistre l'état dans le localStorage
-                SK.Util.setValue($msg.attr("id") + "." + mediaId +".show", show);
+                SK.Util.setValue($msg.data("id") + "." + mediaId +".show", show);
 
             }
         });
@@ -840,7 +840,7 @@ SK.moduleConstructors.EmbedMedia.prototype.embedMedia = function() {
                 return;
             }
 
-            var messageId = $msg.attr("id");
+            var messageId = $msg.data("id");
 
             //On parcourt tous les types de medias
             self.mediaTypes.some(function(mediaType) {
