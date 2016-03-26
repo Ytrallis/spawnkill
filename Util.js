@@ -54,7 +54,18 @@ SK.Util = {
                     callback(undefined);
                 }
                 else {
-                    var pageCount = parseInt($m.find(".right-elt .lien-pagi").text());
+                    var $lastPageLink = $m.find(".right-elt .lien-pagi").first();
+
+                    // S'il n'y a pas de lien vers la dernière page, c'est que le
+                    // topic n'a qu'une seule page.
+                    if ($lastPageLink.length === 0) {
+                        return callback({
+                            pageCount: 1,
+                            postCount: $m.find(".post").length,
+                        });
+                    }
+
+                    var pageCount = parseInt($lastPageLink.text().trim(), 10);
 
                     //Récupération du nombre de posts de la dernière page
                     SK.Util.m(SK.common.getTopicUrlForPage(pageCount), function($m) {
@@ -71,7 +82,7 @@ SK.Util = {
                             else {
                                 callback({
                                     pageCount: pageCount,
-                                    postCount: fullPostCount
+                                    postCount: fullPostCount,
                                 });
                             }
                         }
