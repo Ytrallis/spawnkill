@@ -13,8 +13,6 @@ window.SK = {
     config: {
         //Url du serveur (avec un slash à la fin)
         SERVER_URL: "http://serveur.spawnkill.fr/",
-        SOCKET_SERVER_URL: "ws://serveur.spawnkill.fr",
-        SOCKET_SERVER_PORT: 4243
     },
 
     /**

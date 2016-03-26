@@ -19,7 +19,6 @@
 // @require     Modal.js?v3.0.5
 // @require     DropdownList.js?v3.0.5
 // @require     FaviconNotificationUpdater.js?v3.0.5
-// @require     SocketMessage.js?v3.0.5
 // @require     modules/Module.js?v3.0.5
 // @require     modules/SpawnkillBase.js?v3.0.5
 // @require     modules/Settings.js?v3.0.5

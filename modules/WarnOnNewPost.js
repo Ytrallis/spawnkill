@@ -33,70 +33,7 @@ SK.moduleConstructors.WarnOnNewPost.prototype.init = function() {
         }).get(0);
     }
 
-    //Si l'option Websocket est activée
-    if(self.getSetting("useWebsocketServer")) {
-        this.requestTopicUpdates();
-    }
-    //Pas de websocket, on switch sur le mode HTTP
-    else {
-        this.httpPolling(5000);
-    }
-
-};
-
-/**
- * Ouvre une connexion au serveur de sockets pour demander des notifications
- * de mise à jour du topic courant.
- */
-SK.moduleConstructors.WarnOnNewPost.prototype.requestTopicUpdates = function() {
-
-    var client = SK.modules.SocketConnection;
-
-    //Quand on reçoit une mise à jour des infos du topic
-    client.addOnMessageListener("topicInfos", function(topicInfos) {
-
-        var playSound = this.getSetting("playSoundOnNewPost");
-
-        //En cas de lock, on affiche une erreur dans le favicon
-        if(topicInfos.locked) {
-            this.faviconUpdater.showFaviconError();
-        }
-        //Sinon, c'est que le nombre de posts a changé : on le met à jour et
-        //on affiche la différence dans le favicon
-        else {
-            //Cas de la réception initiale des infos
-            if (this.initialPostCount === 0) {
-                this.initialPostCount = topicInfos.postCount;
-                playSound = false;
-            }
-
-            var postDifference = topicInfos.postCount - this.initialPostCount;
-
-            if(postDifference !== 0) {
-                this.faviconUpdater.showFaviconCount(postDifference);
-            }
-        }
-
-        if(playSound) {
-            this.notificationSound.play();
-        }
-
-    }.bind(this));
-
-    client.addOnConnectListener(function() {
-        //On demande des notifications de mise à jour au serveur
-        client.sendMessage("startFollowingTopic", SK.common.topicId);
-    });
-
-    //En cas d'erreur, on affiche une notif rouge (pour différencier des topics lockés)
-    client.addOnCloseListener(function() {
-
-        //Timeout de trois secondes pour éviter les erreurs au rechargement de la page
-        setTimeout(function() {
-            this.faviconUpdater.showExclamationMark();
-        }.bind(this), 3000);
-
-    }.bind(this));
+    this.httpPolling(5000);
 
 };
 
@@ -166,13 +103,6 @@ SK.moduleConstructors.WarnOnNewPost.prototype.settings = {
         type: "boolean",
         default: false,
     },
-    useWebsocketServer: {
-        title: "Utiliser le nouveau serveur de Websocket",
-        description: "Passe par le nouveau serveur pour récupérer les infos des topics. (désactivé car trop instable)",
-        type: "boolean",
-        disabled: true,
-        default: false,
-    }
 };
 
 SK.moduleConstructors.WarnOnNewPost.prototype.shouldBeActivated = function() {
