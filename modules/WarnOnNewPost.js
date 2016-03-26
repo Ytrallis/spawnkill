@@ -43,40 +43,40 @@ SK.moduleConstructors.WarnOnNewPost.prototype.init = function() {
  */
 SK.moduleConstructors.WarnOnNewPost.prototype.httpPolling = function(checkingInterval) {
 
-        //On récupère les infos initiales du topic
-        this.getPostCount(function(postCount) {
+    //On récupère les infos initiales du topic
+    this.getPostCount(function(postCount) {
 
-            this.initialPostCount = postCount;
+        this.initialPostCount = postCount;
 
-            //On récupère de nouveau les infos du topic à intervale régulier
-            setInterval(function() {
+        //On récupère de nouveau les infos du topic à intervale régulier
+        setInterval(function() {
 
-                this.getPostCount(function(newPostCount) {
-                    //Si le nombre de posts est différent, on met à jour le titre de la page
+            this.getPostCount(function(newPostCount) {
+                //Si le nombre de posts est différent, on met à jour le titre de la page
 
-                    //Si newPostCount === -1, il y a eu une erreur
-                    if(newPostCount !== -1) {
-                        if(this.lastPostCount !== newPostCount && this.initialPostCount !== newPostCount) {
+                //Si newPostCount === -1, il y a eu une erreur
+                if(newPostCount !== -1) {
+                    if(this.lastPostCount !== newPostCount && this.initialPostCount !== newPostCount) {
 
-                            var postDifference = newPostCount - this.initialPostCount;
-                            if(isNaN(postDifference)) {
-                                this.faviconUpdater.showFaviconError();
-                            }
-                            else {
-                                this.faviconUpdater.showFaviconCount(newPostCount - this.initialPostCount);
-                                this.lastPostCount = newPostCount;
-                                if(this.getSetting("playSoundOnNewPost")) {
-                                    this.notificationSound.play();
-                                }
-                            }
-
+                        var postDifference = newPostCount - this.initialPostCount;
+                        if(isNaN(postDifference)) {
+                            this.faviconUpdater.showFaviconError();
                         }
+                        else {
+                            this.faviconUpdater.showFaviconCount(newPostCount - this.initialPostCount);
+                            this.lastPostCount = newPostCount;
+                            if(this.getSetting("playSoundOnNewPost")) {
+                                this.notificationSound.play();
+                            }
+                        }
+
                     }
+                }
 
-                }.bind(this));
+            }.bind(this));
 
-            }.bind(this), checkingInterval);
-        }.bind(this));
+        }.bind(this), checkingInterval);
+    }.bind(this));
 };
 
 /**
