@@ -41,6 +41,10 @@ SK.moduleConstructors.Usability.prototype.init = function() {
             this.overrideQuoteButton();
         }
     }
+
+    if (this.getSetting("aliasNotifications")) {
+        this.showAliasNotifications();
+    }
 };
 
 /**
@@ -144,6 +148,40 @@ SK.moduleConstructors.Usability.prototype.overrideQuoteButton = function() {
     });
 };
 
+/**
+ * Affiche des pastilles de couleur à côté du bouton de changement d'alias si
+ * un des pseudos secondaires de l'utilisateur a une nouvelle notification ou
+ * un nouveau MP.
+ */
+SK.moduleConstructors.Usability.prototype.showAliasNotifications = function() {
+
+    var $aliases = $(".modal-alias .nav-link-account:not(.active)");
+    var $aliasButton = $(".modal-account-users:first");
+
+    var aliasSubscriptions = 0;
+    var aliasMps = 0;
+    $aliases.each(function() {
+        var $this = $(this);
+        aliasSubscriptions += parseInt($this.find(".account-number-notif").attr("data-val"), 10);
+        aliasMps += parseInt($this.find(".account-number-mp").attr("data-val"), 10);
+    });
+
+
+    if (aliasSubscriptions > 0 || aliasMps > 0) {
+        var $notificationsHolder = $('<div>', { class: 'notification-holder modal-account-users' });
+
+        if (aliasSubscriptions > 0) {
+            $notificationsHolder.attr('data-sub-val', aliasSubscriptions);
+        }
+
+        if (aliasMps > 0) {
+            $notificationsHolder.attr('data-mp-val', aliasMps);
+        }
+
+        $aliasButton.after($notificationsHolder);
+    }
+}
+
 SK.moduleConstructors.Usability.prototype._addFullScreenButtonTo = function ($playerWrapper, url) {
 
     var $button = new SK.Button({
@@ -175,6 +213,12 @@ SK.moduleConstructors.Usability.prototype.settings = {
     betterMessageInput: {
         title: "Améliorer la saisie des messages",
         description: "Redimensionne automatiquement la boîte de saisie des messages/topics et change le curseur au survol de la preview",
+        type: "boolean",
+        default: true,
+    },
+    aliasNotifications: {
+        title: "Afficher les notifications des pseudos secondaires",
+        description: "Ajoute une pastille à côté du bouton de changement de pseudo si un pseudo secondaire a une notification ou un MP",
         type: "boolean",
         default: true,
     },
@@ -220,6 +264,31 @@ SK.moduleConstructors.Usability.prototype.getCss = function() {
                 min-height: 20px !important;\
                 height: 20px !important;\
                 visibility: hidden !important;\
+            }\
+        ";
+    }
+
+    if (this.getSetting("aliasNotifications")) {
+        css += "\
+            .notification-holder {\
+                z-index: -1;\
+            }\
+            .notification-holder:before,\
+            .notification-holder:after {\
+                position: absolute;\
+                    left: 2.4rem;\
+                border-radius: 50%;\
+                padding: 0.16rem;\
+            }\
+            .notification-holder[data-mp-val]:after {\
+                content: '';\
+                top: 1.05rem;\
+                background: #f60;\
+            }\
+            .notification-holder[data-sub-val]:before {\
+                content: '';\
+                bottom: 1.05rem;\
+                background: #83C9E1;\
             }\
         ";
     }
