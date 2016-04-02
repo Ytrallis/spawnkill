@@ -81,8 +81,8 @@
 // @grant       GM_getResourceURL
 // @grant       GM_setClipboard
 // @grant       GM_addStyle
-// @connect     self
-// @connect     spawnkill.fr
+// @connect     m.jeuxvideo.com
+// @connect     serveur.spawnkill.fr
 // @run-at document-start
 // ==/UserScript==
 
