@@ -26,9 +26,6 @@ mkdir "${tmp_dir_path}" &> /dev/null
 
 # On parcours le fichier principal pour produire un script temporaire
 
-# http://regex101.com/r/xJ6dX4/1
-start_header_regex="\/\/[[:space:]]*==UserScript=="
-
 # http://regex101.com/r/bD6tJ9/1
 end_header_regex="\/\/[[:space:]]*==\/UserScript=="
 
@@ -47,10 +44,6 @@ while IFS="" read -r line; do
     if [[ $line =~ $end_header_regex ]]; then
         printf "%s\n%s" "// @require file://${dev_script_path}${main_script_file}" "$line" >> "${tmp_script_path}"
         break
-
-    # Juste après le début de l'entête, on inclut le script permettant de corriger les ressources
-    elif [[ $line =~ $start_header_regex ]]; then
-        printf "%s\n%s\n" "$line" "// @require file://${dev_script_path}other/local-dev/correct-ressources-url.js" >> "${tmp_script_path}"
 
     # On fait pointer les @require vers les fichiers locaux
     elif [[ $line =~ $require_regex ]]; then
