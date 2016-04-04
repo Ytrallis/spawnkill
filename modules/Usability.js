@@ -112,12 +112,12 @@ SK.moduleConstructors.Usability.prototype.overrideQuoteButton = function() {
         var $newQuoteButtons = $();
 
         $quoteButtons.each(function () {
-            var $nextButton = $(this.nextSibling);
+            var $parent = $(this).parent();
             var $newQuoteButton = $("<span>", {
                 class: "picto-msg-quote",
             });
             this.remove();
-            $nextButton.before($newQuoteButton);
+            $parent.prepend($newQuoteButton);
             $newQuoteButtons = $newQuoteButtons.add($newQuoteButton);
         });
 

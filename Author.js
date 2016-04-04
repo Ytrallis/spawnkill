@@ -13,10 +13,13 @@ SK.Author = function(pseudo, avatarUrlSm) {
     }
     else {
         this.profileUnavailable = false;
+        this.key = "authors." + pseudo;
     }
-    // https://regex101.com/r/kP6hL0/2
-    this.fullSizeAvatar = avatarUrlSm.replace(/\/(avatars?)-(sm|md)\//, "/$1/");
-    this.key = "authors." + pseudo;
+
+    if (avatarUrlSm) {
+        // https://regex101.com/r/kP6hL0/2
+        this.fullSizeAvatar = avatarUrlSm.replace(/\/(avatars?)-(sm|md)\//, "/$1/");
+    }
     this.profileLink = "";
     //"ban tempo", "ban def", "error" ou "removed"
     this.errorType = "";
