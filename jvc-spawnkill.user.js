@@ -153,7 +153,7 @@ if (!inIframe) {
             module.internal_init();
         };
 
-        if ($(".stats").length > 0) {
+        if ($(".footer-mentions").length > 0) {
             clearInterval(checkDomReady);
 
             //On initialise les modules actifs
