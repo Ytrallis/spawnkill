@@ -236,9 +236,9 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
          * ne match pas :
          * https://www.dropbox.com/s/lfta3yd9tryotxp/screen2.png
          * http://www.hostingpics.net/viewer.php?id=785683.jpg
-         * Pour les tests : http://regex101.com/r/fD7bC3/2
+         * Pour les tests : https://regex101.com/r/fD7bC3/4
          */
-        regex: /^https?:\/\/(?!www\.dropbox\.com|www\.hostingpics)(?:(?:(www\.hapshack\.com\/\?v=)|(www\.noelshack\.com\/([\d]{4})-([\d]{2})-))?(.*.(jp(e|g|eg)|png|gif|bmp)))(?:[\?:].*)?$/i,
+        regex: /^https?:\/\/(?!www\.dropbox\.com|www\.hostingpics)(?:(?:(www\.hapshack\.com\/\?v=)|(www\.noelshack\.com\/([\d]{4})-([\d]{2})-(\d\-)?))?(.*.(jp(e|g|eg)|png|gif|bmp)))(?:[\?:].*)?$/i,
 
         addHideButton: true,
         showButtonText: "Afficher les images",
@@ -247,16 +247,17 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
         getEmbeddedMedia: function($a, match) {
 
             var imageLink = match[0];
-            var extension = match[6];
+            var extension = match[7];
 
             //Prise en compte des images Noelshack
             if(typeof match[2] != "undefined") {
-                imageLink = "http://image.noelshack.com/fichiers/" + match[3] + "/" + match[4] + "/" + match[5];
+                weekDayPart = match[5] ? match[5].replace('-', '/') : '';
+                imageLink = "http://image.noelshack.com/fichiers/" + match[3] + "/" + match[4] + "/" + weekDayPart + "/" + match[6];
             }
 
             //Prise en compte d'Hapshack
             else if(typeof match[1] != "undefined") {
-                imageLink = "http://www.hapshack.com/images/" + match[5];
+                imageLink = "http://www.hapshack.com/images/" + match[6];
             }
 
             //Embed d'une image "classique"
