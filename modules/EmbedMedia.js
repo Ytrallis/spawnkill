@@ -102,75 +102,6 @@ SK.moduleConstructors.EmbedMedia.ManageGifCanvas = {
     }
 };
 
-/**
- * Wrapper de l'API de GfyCat permettant de convertir des gif en vidéos webm à la volée
- */
-SK.moduleConstructors.EmbedMedia.GfyApi = {
-
-    /**
-     * Test si le gif a déjà été converti.
-     * @param {string} url Url du gif à tester
-     * @param {function} callback Fonction appelée avec la réponse de l'appel,
-     *    voir la doc pour plus d'infos : http://gfycat.com/api
-     */
-    testGif: function(url, callback) {
-        GM_xmlhttpRequest({
-            method: "GET",
-            url: "http://gfycat.com/cajax/checkUrl/" + encodeURIComponent(url),
-            onload: function(data) {
-                callback(JSON.parse(data.responseText));
-            }
-        });
-    },
-
-    /**
-     * Converti un gif en vidéo webm.
-     * @param {string} url Url du gif à convertir
-     * @param {function} callback Fonction appelée avec la réponse de l'appel,
-     *    voir la doc pour plus d'infos : http://gfycat.com/api
-     */
-    convertGif: function(gifUrl, callback) {
-        GM_xmlhttpRequest({
-            method: "POST",
-            url: "http://upload.gfycat.com/transcode?fetchUrl=" + encodeURIComponent(gifUrl),
-            onload: function(data) {
-                var json = JSON.parse(data.responseText);
-
-                if(typeof json.error !== "undefined") {
-                    callback(undefined);
-                }
-                else {
-                    callback(json);
-                }
-            }
-        });
-    },
-
-    /**
-     * Retourne le lien vers la vidéos webm correspondant au gif passé en paramètre.
-     * @param {string} url Url du gif à convertir
-     * @param {function} callback Fonction appelée avec l'url de la vidéo en paramètre ou false en cas d'erreur
-     */
-    getWebmFromGif: function(gifUrl, callback) {
-        SK.moduleConstructors.EmbedMedia.GfyApi.testGif(gifUrl, function(check) {
-            if(check.urlKnown) {
-                callback(check.webmUrl);
-            }
-            else {
-                SK.moduleConstructors.EmbedMedia.GfyApi.convertGif(gifUrl, function(converted) {
-                    if(typeof converted === "undefined") {
-                        callback(undefined);
-                    }
-                    else {
-                        callback(converted.webmUrl);
-                    }
-                });
-            }
-        });
-    }
-};
-
-
 /* options : {
     id: nom du type de media
     regex: regex de reconnaissance du lien
@@ -278,41 +209,15 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
 
             //Si l'image est un gif, on la converti en vidéo HTML5 via Gfycat
             if(extension.toLowerCase() === "gif") {
-
-                // On intègre la vidéo et on met à jour le lien vers cette vidéo
-                $el.html("<video autoplay loop></video>");
-
-                SK.moduleConstructors.EmbedMedia.GfyApi.getWebmFromGif(imageLink, function(webmLink) {
-                    //En cas d'erreur, fallback à l'embed classique
-                    if(typeof webmLink === "undefined") {
-                        $el.html($imageEmbed);
-
-                        if (self.getSetting("startGifWhenOnScreen")) {
-                            // On attend le chargement complet du GIF, sinon le canvas sera vide
-                            $imageEmbed.one("load", function() {
-                                SK.moduleConstructors.EmbedMedia.ManageGifCanvas.createCanvas($imageEmbed);
-                            });
-                            $imageEmbed.attr("src", $imageEmbed.attr("src"));
-                        }
-                    }
-                    else {
-                        //On rempli l'élément du DOM après coup
-                        $el.attr("href", webmLink);
-                        $el.find("video").attr("src", webmLink);
-
-                        if (self.getSetting("startGifWhenOnScreen")) {
-                            $el.find("video").on("loadedmetadata", function() {
-
-                                var $this = $(this);
-                                // Une fois chargé, ajout d'une classe pour prise en compte par le onScroll
-                                $this.addClass("gif-webm");
-                                // Démarrer ou mettre en pause la webm suivant sa position
-                                self.updateWebmStatus($this);
-                            });
-                        }
-                    }
-                });
+              if (self.getSetting("startGifWhenOnScreen")) {
+                  // On attend le chargement complet du GIF, sinon le canvas sera vide
+                  $imageEmbed.one("load", function() {
+                      SK.moduleConstructors.EmbedMedia.ManageGifCanvas.createCanvas($imageEmbed);
+                  });
+                  $imageEmbed.attr("src", $imageEmbed.attr("src"));
+              }
             }
+
             return $el;
         }
 
