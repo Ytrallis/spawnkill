@@ -314,7 +314,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
             height: 100%;\
             background-color: #EEE;\
             opacity: 0.9;\
-            z-index: 42000;\
+            z-index: 1999999988;\
         }\
         #modal-loader {\
             display: none;\
@@ -323,7 +323,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
             height: 40px;\
             background-image: url('" + GM_getResourceURL("big-loader") + "');\
             background-repeat: no-repeat;\
-            z-index: 42010;\
+            z-index: 1999999990;\
             opacity: 0.3;\
         }\
         #sk-notifications {\
@@ -341,7 +341,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
             background-color: #FFF;\
             box-shadow: 0 10px 20px 2px rgba(0, 0, 0, 0.4);\
             opacity: 0;\
-            z-index: 42020;\
+            z-index: 1999999992;\
             transition-duration: 400ms;\
         }\
         .modal-box.center {\
@@ -444,7 +444,7 @@ SK.moduleConstructors.SpawnkillBase.prototype.settings = {
             opacity: 0.3;\
         }\
         #sk-notifications {\
-            z-index: 42030;\
+            z-index: 1999999994;\
         }\
         #sk-notifications .notification {\
             position: relative;\
