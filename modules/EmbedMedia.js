@@ -182,7 +182,7 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
 
             //Prise en compte des images Noelshack
             if(typeof match[2] != "undefined") {
-                weekDayPart = match[5] ? match[5].replace('-', '/') : '';
+                var weekDayPart = match[5] ? match[5].replace('-', '/') : '';
                 imageLink = "http://image.noelshack.com/fichiers/" + match[3] + "/" + match[4] + "/" + weekDayPart + "/" + match[6];
             }
 
