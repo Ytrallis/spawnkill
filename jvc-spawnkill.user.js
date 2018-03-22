@@ -154,7 +154,7 @@ if (!inIframe) {
             module.internal_init();
         };
 
-        if ($(".footer-mentions").length > 0) {
+        if ($("#jv-footer").length > 0) {
             clearInterval(checkDomReady);
 
             //On initialise les modules actifs
