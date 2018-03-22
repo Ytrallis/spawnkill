@@ -7,31 +7,31 @@
 // @include     http://*.forumjv.com/*
 // @include     https://*.jeuxvideo.com/*
 // @include     https://*.forumjv.com/*
-// @version     3.1.7
-// @require     jquery-2.2.0.min.js?v3.1.7
-// @require     jquery-plugins.js?v3.1.7
-// @require     base.js?v3.1.7
-// @require     Util.js?v3.1.7
-// @require     Message.js?v3.1.7
-// @require     Author.js?v3.1.7
-// @require     Button.js?v3.1.7
-// @require     SlideToggle.js?v3.1.7
-// @require     Modal.js?v3.1.7
-// @require     DropdownList.js?v3.1.7
-// @require     FaviconNotificationUpdater.js?v3.1.7
-// @require     modules/Module.js?v3.1.7
-// @require     modules/SpawnkillBase.js?v3.1.7
-// @require     modules/Settings.js?v3.1.7
-// @require     modules/Quote.js?v3.1.7
-// @require     modules/Shortcuts.js?v3.1.7
-// @require     modules/InfosPseudo.js?v3.1.7
-// @require     modules/HilightSpecialTopic.js?v3.1.7
-// @require     modules/LastPage.js?v3.1.7
-// @require     modules/EmbedMedia.js?v3.1.7
-// @require     modules/WarnOnNewPost.js?v3.1.7
-// @require     modules/AutoUpdate.js?v3.1.7
-// @require     modules/PemtHighlight.js?v3.1.7
-// @require     modules/Usability.js?v3.1.7
+// @version     3.1.8
+// @require     jquery-2.2.0.min.js?v3.1.8
+// @require     jquery-plugins.js?v3.1.8
+// @require     base.js?v3.1.8
+// @require     Util.js?v3.1.8
+// @require     Message.js?v3.1.8
+// @require     Author.js?v3.1.8
+// @require     Button.js?v3.1.8
+// @require     SlideToggle.js?v3.1.8
+// @require     Modal.js?v3.1.8
+// @require     DropdownList.js?v3.1.8
+// @require     FaviconNotificationUpdater.js?v3.1.8
+// @require     modules/Module.js?v3.1.8
+// @require     modules/SpawnkillBase.js?v3.1.8
+// @require     modules/Settings.js?v3.1.8
+// @require     modules/Quote.js?v3.1.8
+// @require     modules/Shortcuts.js?v3.1.8
+// @require     modules/InfosPseudo.js?v3.1.8
+// @require     modules/HilightSpecialTopic.js?v3.1.8
+// @require     modules/LastPage.js?v3.1.8
+// @require     modules/EmbedMedia.js?v3.1.8
+// @require     modules/WarnOnNewPost.js?v3.1.8
+// @require     modules/AutoUpdate.js?v3.1.8
+// @require     modules/PemtHighlight.js?v3.1.8
+// @require     modules/Usability.js?v3.1.8
 // @resource    close                 images/close.png
 // @resource    banImage              images/ban.png
 // @resource    newTopic              images/new-topic.png
@@ -91,7 +91,7 @@
 /* jshint unused: false */
 /* jshint multistr: true */
 /* jshint newcap: false */
-SK.VERSION = "v3.1.7";
+SK.VERSION = "v3.1.8";
 
 
 var inIframe = window.top !== window.self;
@@ -154,7 +154,7 @@ if (!inIframe) {
             module.internal_init();
         };
 
-        if ($(".footer-mentions").length > 0) {
+        if ($("#jv-footer").length > 0) {
             clearInterval(checkDomReady);
 
             //On initialise les modules actifs
