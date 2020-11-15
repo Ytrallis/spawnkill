@@ -273,7 +273,7 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
              * Retourne une version "embed" du lien, sinon null.
              */
             var getEmbedUrl = function(youtubeId, start) {
-                return "http://www.youtube.com/embed/" + youtubeId + "?html5=1" + (start !== 0 ? "&start=" + start : "");
+                return "https://www.youtube.com/embed/" + youtubeId + "?html5=1" + (start !== 0 ? "&start=" + start : "");
             };
 
             /**
