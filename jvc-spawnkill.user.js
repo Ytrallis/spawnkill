@@ -83,7 +83,7 @@
 // @grant       GM_addStyle
 // @connect     m.jeuxvideo.com
 // @connect     serveur.spawnkill.fr
-// @connect     api.twitter.com
+// @connect     publish.twitter.com/=
 // @run-at document-start
 // ==/UserScript==
 
