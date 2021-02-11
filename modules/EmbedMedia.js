@@ -559,7 +559,7 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
         getEmbeddedMedia: function($a, match) {
 
             var tweetId = match[1];
-            var tweetLink = "https://publish.twitter.com/oembed?url=" + tweetId;
+            var tweetLink = "https://publish.twitter.com/oembed?url=https://twitter.com/" + tweetId;
 
             var $el = $("<div>");
 
