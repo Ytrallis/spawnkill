@@ -455,7 +455,7 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
         id: "dailymotion",
         settingId: "embedVideos",
 
-        regex: /^http:\/\/www\.dailymotion\.com\/video\/([^_]*)/,
+        regex: /^https:\/\/www\.dailymotion\.com\/video\/([^_]*)/,
 
         addHideButton: true,
         showButtonText: "Afficher les vidéos DailyMotion",
@@ -559,7 +559,7 @@ SK.moduleConstructors.EmbedMedia.prototype.initMediaTypes = function() {
         getEmbeddedMedia: function($a, match) {
 
             var tweetId = match[1];
-            var tweetLink = "https://api.twitter.com/1/statuses/oembed.json?omit_script=true&id=" + tweetId;
+            var tweetLink = "https://publish.twitter.com/oembed?url=" + tweetId;
 
             var $el = $("<div>");
 
@@ -810,7 +810,7 @@ SK.moduleConstructors.EmbedMedia.prototype.settings = {
         title: "Masquer les contenus par défaut",
         description: "Cache le contenu par défaut, il faut d'abord cliquer sur le bouton pour le faire apparaître.",
         type: "boolean",
-        default: false,
+        default: true,
     },
     maxMediaPerPost: {
         title: "Nombre maximum de media par post",
@@ -823,7 +823,7 @@ SK.moduleConstructors.EmbedMedia.prototype.settings = {
             "50": "50",
             "0": "Pas de limite",
         },
-        default: "20",
+        default: "0",
     },
     embedVideos: {
         title: "Intégration des vidéos",
